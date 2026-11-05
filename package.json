@@ -1,0 +1,23 @@
+{
+  "name": "josue-codes",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=22.23.4"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "cf:dev": "astro build && wrangler dev",
+    "cf:check": "astro build && wrangler deploy --dry-run"
+  },
+  "dependencies": {
+    "astro": "^7.4.5"
+  },
+  "devDependencies": {
+    "wrangler": "^4.157.0"
+  }
+}
