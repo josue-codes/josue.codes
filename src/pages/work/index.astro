@@ -1,0 +1,13 @@
+---
+import Base from '../../layouts/Base.astro';
+import WorkCard from '../../components/WorkCard.astro';
+import { getPublishedWork } from '../../lib/work';
+
+const work = await getPublishedWork();
+---
+
+<Base title="Work" description="Case studies with measured outcomes.">
+  <h1>Work</h1>
+  <p class="lede">Case studies with measured outcomes.</p>
+  {work.map((entry) => <WorkCard entry={entry} />)}
+</Base>

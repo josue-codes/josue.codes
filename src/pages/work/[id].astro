@@ -1,0 +1,108 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { getPublishedWork } from '../../lib/work';
+
+export async function getStaticPaths() {
+  const work = await getPublishedWork();
+  return work.map((entry) => ({ params: { id: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<Base title={entry.data.title} description={entry.data.summary}>
+  <article>
+    <h1>{entry.data.title}</h1>
+    <p class="lede">{entry.data.summary}</p>
+    <div class="meta">
+      <p><strong>Role:</strong> {entry.data.role}</p>
+      <p><strong>Outcome:</strong> {entry.data.outcome}</p>
+    </div>
+    <div class="prose" data-glossary-scope>
+      <Content />
+    </div>
+  </article>
+  <p><a href="/work/">← All case studies</a></p>
+</Base>
+
+<script>
+  // Turns the first use of each glossary term into a tooltip. Reads the rendered
+  // "Glossary" section, so the Markdown stays plain and readers without JS still
+  // get the full glossary at the end of the page.
+  const scope = document.querySelector<HTMLElement>('[data-glossary-scope]');
+  const heading = scope
+    ? [...scope.querySelectorAll('h2')].find((h) => h.textContent?.trim().toLowerCase() === 'glossary')
+    : undefined;
+  const list = heading?.nextElementSibling;
+
+  if (scope && heading && list?.tagName === 'UL') {
+    const terms = [...list.querySelectorAll('li')]
+      .map((li) => {
+        const label = li.querySelector('strong')?.textContent ?? '';
+        const term = label.replace(/:\s*$/, '').trim();
+        const definition = (li.textContent ?? '').slice(label.length).trim();
+        return { term, definition };
+      })
+      .filter((t) => t.term && t.definition)
+      .sort((a, b) => b.term.length - a.term.length);
+
+    const skip = 'h1,h2,h3,h4,h5,h6,a,code,pre,button,.term-wrap';
+    const beforeGlossary = (node: Node) =>
+      Boolean(heading.compareDocumentPosition(node) & Node.DOCUMENT_POSITION_PRECEDING);
+    const escape = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+    terms.forEach(({ term, definition }, i) => {
+      const pattern = new RegExp(`\\b${escape(term)}(e?s)?\\b`, 'i');
+      const walker = document.createTreeWalker(scope, NodeFilter.SHOW_TEXT);
+      for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+        if (!beforeGlossary(node) || node.parentElement?.closest(skip)) continue;
+        const match = pattern.exec(node.nodeValue ?? '');
+        if (!match) continue;
+
+        const target = (node as Text).splitText(match.index);
+        target.splitText(match[0].length);
+
+        const wrap = document.createElement('span');
+        wrap.className = 'term-wrap';
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'term';
+        button.textContent = target.nodeValue;
+        const tip = document.createElement('span');
+        tip.className = 'term-tip';
+        tip.id = `term-tip-${i}`;
+        tip.setAttribute('role', 'tooltip');
+        tip.textContent = definition;
+        button.setAttribute('aria-describedby', tip.id);
+        wrap.append(button, tip);
+        target.replaceWith(wrap);
+        break;
+      }
+    });
+
+    const closeAll = (except?: Element) =>
+      scope.querySelectorAll('.term-wrap.is-open').forEach((el) => el !== except && el.classList.remove('is-open'));
+
+    scope.addEventListener('click', (event) => {
+      const wrap = (event.target as Element).closest('.term-wrap');
+      closeAll(wrap ?? undefined);
+      wrap?.classList.toggle('is-open');
+    });
+    scope.addEventListener('focusin', (event) => {
+      const wrap = (event.target as Element).closest('.term-wrap');
+      closeAll(wrap ?? undefined);
+      wrap?.classList.add('is-open');
+    });
+    scope.addEventListener('focusout', (event) => {
+      (event.target as Element).closest('.term-wrap')?.classList.remove('is-open');
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closeAll();
+    });
+    document.addEventListener('click', (event) => {
+      if (!scope.contains(event.target as Node)) closeAll();
+    });
+  }
+</script>

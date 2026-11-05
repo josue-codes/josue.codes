@@ -1,0 +1,20 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../site';
+---
+
+<Base title="About">
+  <h1>About</h1>
+  <p class="lede">{site.positioning}</p>
+  <p>
+    I work as both a manager and a hands-on engineer at B-Stock. Most of that work is private, so the case studies here
+    describe it within the limits of my confidentiality obligations.
+  </p>
+  {site.resumeUrl && <p><a class="button" href={site.resumeUrl}>Resume (PDF)</a></p>}
+  <h2>Contact</h2>
+  <ul class="contact-row">
+    <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+    <li><a href={site.linkedin} rel="me">LinkedIn</a></li>
+    <li><a href={site.github} rel="me">GitHub</a></li>
+  </ul>
+</Base>

@@ -1,0 +1,15 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'work'>;
+}
+
+const { entry } = Astro.props;
+---
+
+<a class="card" href={`/work/${entry.id}/`}>
+  <h3>{entry.data.title}</h3>
+  <p>{entry.data.summary}</p>
+  <p class="outcome">{entry.data.outcome}</p>
+</a>
