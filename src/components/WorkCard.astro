@@ -6,10 +6,17 @@ interface Props {
 }
 
 const { entry } = Astro.props;
+const href = `/work/${entry.id}/`;
 ---
 
-<a class="card" href={`/work/${entry.id}/`}>
-  <h3>{entry.data.title}</h3>
-  <p>{entry.data.summary}</p>
-  <p class="outcome">{entry.data.outcome}</p>
-</a>
+<li class="entry">
+  <div class="entry-body">
+    <h3 class="entry-title"><a href={href}>{entry.data.title}</a></h3>
+    <p class="entry-summary">{entry.data.summary}</p>
+  </div>
+  <div class="entry-outcome">
+    <p class="eyebrow">Outcome</p>
+    <p>{entry.data.outcome}</p>
+  </div>
+  <p class="entry-cta" aria-hidden="true">Read the case study<span class="arrow">→</span></p>
+</li>

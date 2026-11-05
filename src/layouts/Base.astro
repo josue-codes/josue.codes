@@ -1,6 +1,9 @@
 ---
 import '../styles/global.css';
 import { site } from '../site';
+import { palettes, DEFAULT_PALETTE, DEFAULT_MODE } from '../themes';
+import Mark from '../components/Mark.astro';
+import { Image } from 'astro:assets';
 
 interface Props {
   title?: string;
@@ -9,40 +12,129 @@ interface Props {
 
 const { title, description = site.positioning } = Astro.props;
 const pageTitle = title ? `${title} | ${site.name}` : site.name;
+const path = Astro.url.pathname;
+const current = (href: string) => (href === '/' ? path === '/' : path.startsWith(href)) ? 'page' : undefined;
+const paletteIds = palettes.map((p) => p.id);
 ---
 
-<html lang="en">
+<html lang="en" data-palette={DEFAULT_PALETTE} data-mode={DEFAULT_MODE}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#1e1e1e" />
+    {/* Apply the visitor's saved palette and mode before first paint, so a saved choice never flashes the default. */}
+    <script is:inline define:vars={{ paletteIds }}>
+      const root = document.documentElement;
+      root.classList.add('js');
+      try {
+        const palette = localStorage.getItem('palette');
+        const mode = localStorage.getItem('mode');
+        if (paletteIds.includes(palette)) root.dataset.palette = palette;
+        if (mode === 'light' || mode === 'dark') root.dataset.mode = mode;
+      } catch {
+        // Storage blocked (private window, strict settings): keep the defaults.
+      }
+    </script>
+    <link rel="preload" href="/fonts/source-serif-4-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   </head>
   <body>
+    <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header">
-      <div class="wrap">
-        <a class="brand" href="/">{site.name}</a>
+      <div class="shell header-inner">
         <nav class="site-nav" aria-label="Main">
-          <a href="/work/">Work</a>
-          <a href="/about/">About</a>
-          {site.resumeUrl && <a href={site.resumeUrl}>Resume</a>}
-          <a href={`mailto:${site.email}`}>Email</a>
+          <div class="nav-group nav-left">
+            <a href="/work/" aria-current={current('/work/')}>Work</a>
+            <a href="/about/" aria-current={current('/about/')}>About</a>
+            {site.resumeUrl && <a href={site.resumeUrl}>Resume</a>}
+          </div>
+          <a class="nav-home" href="/" aria-label={`${site.name}, home`} aria-current={current('/')}>
+            {site.photo ? <Image src={site.photo} alt="" width={80} densities={[1, 2]} loading="eager" /> : <Mark />}
+          </a>
+          <div class="nav-group nav-right">
+            <a href={`mailto:${site.email}`}>Email</a>
+            <a class="nav-source" href={site.source}>
+              <svg viewBox="0 0 16 16" aria-hidden="true"
+                ><path
+                  d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
+                ></path></svg
+              >Source
+            </a>
+          </div>
         </nav>
+        <div class="prefs" role="group" aria-label="Appearance">
+          <label class="visually-hidden" for="palette-select">Theme</label>
+          <select id="palette-select" class="pref-select">
+            {palettes.map((p) => <option value={p.id}>{p.label}</option>)}
+          </select>
+          <button id="mode-toggle" class="pref-button" type="button" aria-pressed="false">
+            <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"
+              ><circle cx="12" cy="12" r="4"></circle><path
+                d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"
+              ></path></svg
+            >
+            <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"
+              ><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"></path></svg
+            >
+            <span class="visually-hidden">Light mode</span>
+          </button>
+        </div>
       </div>
     </header>
-    <main class="wrap">
+    <main id="main" class="shell">
       <slot />
     </main>
     <footer class="site-footer">
-      <div class="wrap">
+      <div class="shell">
+        <span class="footer-brand"><Mark /> {site.name}</span>
         <ul class="contact-row">
           <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
           <li><a href={site.linkedin} rel="me">LinkedIn</a></li>
           <li><a href={site.github} rel="me">GitHub</a></li>
+          <li><a href={site.source}>Page source</a></li>
         </ul>
       </div>
     </footer>
+    {/* Theme controls. Without JavaScript they stay hidden and the page uses the defaults set on <html>. */}
+    <script is:inline>
+      (() => {
+        const root = document.documentElement;
+        const select = document.getElementById('palette-select');
+        const toggle = document.getElementById('mode-toggle');
+        const meta = document.querySelector('meta[name="theme-color"]');
+        const save = (key, value) => {
+          try {
+            localStorage.setItem(key, value);
+          } catch {
+            // Storage blocked: the choice still applies to this page view.
+          }
+        };
+        const sync = () => {
+          const light = root.dataset.mode === 'light';
+          select.value = root.dataset.palette;
+          toggle.setAttribute('aria-pressed', String(light));
+          toggle.title = light ? 'Switch to dark mode' : 'Switch to light mode';
+          meta.content = getComputedStyle(root).getPropertyValue('--paper').trim();
+        };
+        select.addEventListener('change', () => {
+          root.dataset.palette = select.value;
+          save('palette', select.value);
+          sync();
+        });
+        toggle.addEventListener('click', () => {
+          root.dataset.mode = root.dataset.mode === 'light' ? 'dark' : 'light';
+          save('mode', root.dataset.mode);
+          sync();
+        });
+        sync();
+      })();
+    </script>
   </body>
 </html>

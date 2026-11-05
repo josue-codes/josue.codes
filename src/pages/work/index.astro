@@ -7,7 +7,12 @@ const work = await getPublishedWork();
 ---
 
 <Base title="Work" description="Case studies with measured outcomes.">
-  <h1>Work</h1>
-  <p class="lede">Case studies with measured outcomes.</p>
-  {work.map((entry) => <WorkCard entry={entry} />)}
+  <header class="page-header">
+    <p class="eyebrow">Work</p>
+    <h1>Case studies</h1>
+    <p class="lede">Each one is built around a measured before-and-after.</p>
+  </header>
+  <ul class="entry-list">
+    {work.map((entry) => <WorkCard entry={entry} />)}
+  </ul>
 </Base>

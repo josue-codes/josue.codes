@@ -1,0 +1,26 @@
+---
+// The photo slot. With site.photo set it renders the square portrait as a circle, resized by Astro to the
+// largest size the variant displays (at 1x and 2x). Without one it renders the monogram tile, so the layout
+// never shows an empty box.
+import { Image } from 'astro:assets';
+import { site, initials } from '../site';
+
+interface Props {
+  variant?: 'hero' | 'about';
+}
+
+const { variant = 'hero' } = Astro.props;
+const className = `portrait portrait-${variant}`;
+// Largest CSS width of each variant, in px: hero clamps to 15.5rem, about to 12rem.
+const width = variant === 'about' ? 192 : 248;
+---
+
+{
+  site.photo ? (
+    <Image class={className} src={site.photo} alt={site.name} width={width} densities={[1, 2]} loading="eager" />
+  ) : (
+    <div class={`${className} portrait-mark`} aria-hidden="true">
+      <span>{initials}</span>
+    </div>
+  )
+}

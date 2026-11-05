@@ -13,18 +13,29 @@ const { Content } = await render(entry);
 ---
 
 <Base title={entry.data.title} description={entry.data.summary}>
-  <article>
-    <h1>{entry.data.title}</h1>
-    <p class="lede">{entry.data.summary}</p>
-    <div class="meta">
-      <p><strong>Role:</strong> {entry.data.role}</p>
-      <p><strong>Outcome:</strong> {entry.data.outcome}</p>
-    </div>
-    <div class="prose" data-glossary-scope>
+  <article class="case">
+    <header class="case-header wrap">
+      <p class="eyebrow">Case study</p>
+      <h1>{entry.data.title}</h1>
+      <p class="lede">{entry.data.summary}</p>
+      <dl class="case-meta">
+        <div>
+          <dt class="eyebrow">Role</dt>
+          <dd>{entry.data.role}</dd>
+        </div>
+        <div>
+          <dt class="eyebrow">Outcome</dt>
+          <dd class="case-outcome">{entry.data.outcome}</dd>
+        </div>
+      </dl>
+    </header>
+    <div class="prose wrap" data-glossary-scope>
       <Content />
     </div>
   </article>
-  <p><a href="/work/">← All case studies</a></p>
+  <nav class="case-footer wrap" aria-label="Case studies">
+    <a href="/work/">← All case studies</a>
+  </nav>
 </Base>
 
 <script>
@@ -82,6 +93,21 @@ const { Content } = await render(entry);
       }
     });
 
+    // Keeps an open tooltip inside the viewport (a term near the right edge of a phone screen
+    // would otherwise push its tip off-screen). Measured once the tip is visible.
+    const place = (wrap: Element | null | undefined) => {
+      const tip = wrap?.querySelector<HTMLElement>('.term-tip');
+      if (!tip) return;
+      tip.style.removeProperty('--tip-shift');
+      const rect = tip.getBoundingClientRect();
+      if (rect.width === 0) return;
+      const margin = 16;
+      const overflowRight = rect.right - (window.innerWidth - margin);
+      const overflowLeft = margin - rect.left;
+      const shift = overflowRight > 0 ? -overflowRight : overflowLeft > 0 ? overflowLeft : 0;
+      if (shift) tip.style.setProperty('--tip-shift', `${shift}px`);
+    };
+
     const closeAll = (except?: Element) =>
       scope.querySelectorAll('.term-wrap.is-open').forEach((el) => el !== except && el.classList.remove('is-open'));
 
@@ -89,14 +115,20 @@ const { Content } = await render(entry);
       const wrap = (event.target as Element).closest('.term-wrap');
       closeAll(wrap ?? undefined);
       wrap?.classList.toggle('is-open');
+      place(wrap);
     });
     scope.addEventListener('focusin', (event) => {
       const wrap = (event.target as Element).closest('.term-wrap');
       closeAll(wrap ?? undefined);
       wrap?.classList.add('is-open');
+      place(wrap);
     });
     scope.addEventListener('focusout', (event) => {
       (event.target as Element).closest('.term-wrap')?.classList.remove('is-open');
+    });
+    scope.addEventListener('mouseover', (event) => {
+      const wrap = (event.target as Element).closest('.term-wrap');
+      if (wrap && !wrap.classList.contains('is-open')) place(wrap);
     });
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') closeAll();

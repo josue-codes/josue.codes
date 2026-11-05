@@ -1,20 +1,47 @@
 ---
 import Base from '../layouts/Base.astro';
+import Portrait from '../components/Portrait.astro';
 import { site } from '../site';
+
+const linkedinHandle = site.linkedin.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
+const githubHandle = site.github.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
 ---
 
 <Base title="About">
-  <h1>About</h1>
-  <p class="lede">{site.positioning}</p>
-  <p>
-    I work as both a manager and a hands-on engineer at B-Stock. Most of that work is private, so the case studies here
-    describe it within the limits of my confidentiality obligations.
-  </p>
-  {site.resumeUrl && <p><a class="button" href={site.resumeUrl}>Resume (PDF)</a></p>}
-  <h2>Contact</h2>
-  <ul class="contact-row">
-    <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
-    <li><a href={site.linkedin} rel="me">LinkedIn</a></li>
-    <li><a href={site.github} rel="me">GitHub</a></li>
-  </ul>
+  <section class="about">
+    <Portrait variant="about" />
+    <div class="about-copy">
+      <p class="eyebrow">About</p>
+      <h1>{site.name}</h1>
+      <p class="lede">I also go by {site.aka}.</p>
+      <p>{site.positioning}</p>
+      <p>
+        I work as both a manager and a hands-on engineer at B-Stock. Most of that work is private, so the case studies
+        here describe it within the limits of my confidentiality obligations.
+      </p>
+      {
+        site.resumeUrl && (
+          <p class="about-actions">
+            <a class="button" href={site.resumeUrl}>
+              Resume
+            </a>
+          </p>
+        )
+      }
+      <dl class="contact-list">
+        <div>
+          <dt class="eyebrow">Email</dt>
+          <dd><a href={`mailto:${site.email}`}>{site.email}</a></dd>
+        </div>
+        <div>
+          <dt class="eyebrow">LinkedIn</dt>
+          <dd><a href={site.linkedin} rel="me">{linkedinHandle}</a></dd>
+        </div>
+        <div>
+          <dt class="eyebrow">GitHub</dt>
+          <dd><a href={site.github} rel="me">{githubHandle}</a></dd>
+        </div>
+      </dl>
+    </div>
+  </section>
 </Base>

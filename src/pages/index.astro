@@ -5,18 +5,31 @@ import { site } from '../site';
 import { getPublishedWork } from '../lib/work';
 
 const work = await getPublishedWork();
+const featured = work[0];
 ---
 
 <Base>
-  <h1>{site.name}</h1>
-  <p class="lede">{site.positioning}</p>
-  <p>
-    <a class="button" href={`mailto:${site.email}`}>Email me</a>
-    {site.resumeUrl && <> <a href={site.resumeUrl}>Resume (PDF)</a></>}
-  </p>
-  {site.openTo && <p>{site.openTo}</p>}
+  <section class="hero" aria-labelledby="intro">
+    <div class="hero-copy">
+      <p class="eyebrow">{site.role}</p>
+      <h1 id="intro">{site.name}</h1>
+      <p class="lede">{site.positioning}</p>
+      {site.openTo && <p class="status">{site.openTo}</p>}
+      <div class="hero-actions">
+        <a class="button" href={`mailto:${site.email}`}>Email me</a>
+        {site.resumeUrl && <a class="button button-secondary" href={site.resumeUrl}>Resume</a>}
+        {featured && <a href={`/work/${featured.id}/`}>Read a case study<span class="arrow">→</span></a>}
+      </div>
+    </div>
+  </section>
 
-  <h2>Selected work</h2>
-  {work.map((entry) => <WorkCard entry={entry} />)}
-  <p><a href="/work/">All case studies</a></p>
+  <section class="section" aria-labelledby="selected-work">
+    <div class="section-head">
+      <h2 id="selected-work">Selected work</h2>
+      <p><a href="/work/">All case studies<span class="arrow">→</span></a></p>
+    </div>
+    <ul class="entry-list">
+      {work.map((entry) => <WorkCard entry={entry} />)}
+    </ul>
+  </section>
 </Base>
