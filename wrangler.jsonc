@@ -6,5 +6,11 @@
   "assets": {
     "directory": "./dist",
     "not_found_handling": "404-page"
-  }
+  },
+  // Custom Domains: Cloudflare creates the DNS records and certificates for these names only. Other records on
+  // the zone (the iCloud MX records for email) are left alone.
+  "routes": [
+    { "pattern": "josue.codes", "custom_domain": true },
+    { "pattern": "www.josue.codes", "custom_domain": true }
+  ]
 }

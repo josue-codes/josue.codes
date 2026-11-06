@@ -33,6 +33,7 @@ const paletteIds = palettes.map((p) => p.id);
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
     <meta name="theme-color" content="#1e1e1e" />
     {/* Apply the visitor's saved palette and mode before first paint, so a saved choice never flashes the default. */}
     <script is:inline define:vars={{ paletteIds }}>
