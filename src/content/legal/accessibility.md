@@ -9,11 +9,11 @@ tldr:
   - Not independently audited. If something gets in your way, tell me.
 ---
 
-## My goal
+## My Goal
 
 I want everyone to be able to use this site, however they browse. The target is the [Web Content Accessibility Guidelines (WCAG) 2.2](https://www.w3.org/TR/WCAG22/), level AA. This statement is voluntary.
 
-## What is in place
+## What Is in Place
 
 - Semantic HTML, with headings and landmarks that describe the page.
 - A skip link to the main content.
@@ -29,6 +29,6 @@ I want everyone to be able to use this site, however they browse. The target is 
 
 The site has not had an independent accessibility audit. I check color contrast against the WCAG formula and review pages in desktop and mobile browsers myself. Those checks can miss things.
 
-## Report a problem
+## Report a Problem
 
 If something is hard to use, email [josue@josue.codes](mailto:josue@josue.codes) or call [+1 (407) 902-9897](tel:+14079029897). Tell me the page and what went wrong. Details about your browser or assistive technology help, if you want to share them. I aim to reply within a few business days.

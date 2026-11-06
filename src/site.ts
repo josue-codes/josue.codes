@@ -9,7 +9,7 @@ export const site = {
   // How the name appears in headings and page titles.
   displayName: 'Joshua (Josue) Andujar',
   // Short role line used as the eyebrow on the home page.
-  role: 'Manager and hands-on engineer',
+  role: 'Leader & Engineer',
   positioning:
     'I help teams agree on what the problem really is, then write the code that makes the fix last.',
   email: 'josue@josue.codes',

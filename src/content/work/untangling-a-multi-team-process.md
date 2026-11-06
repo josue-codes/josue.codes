@@ -1,7 +1,7 @@
 ---
-title: "Untangling a multi-team process into one that scales"
+title: "Untangling a Multi-Team Process into One That Scales"
 summary: "A seller's contract program built a months-long backlog because three teams priced the same inventory three different ways. I aligned them on one category taxonomy, changed a rigid platform requirement, and automated the rest. Installment setup fell from an hour to under a minute, and the backlog cleared in about a week."
-role: "Manager and hands-on engineer: led the cross-team diagnosis, set the shared category taxonomy, wrote the platform change spec, and built the automation"
+role: "Leader and engineer: led the cross-team diagnosis, set the shared category taxonomy, wrote the platform change spec, and built the automation"
 outcome: "Installment setup went from ~1 hour to under 1 minute. A months-long backlog cleared in about a week and hasn't come back."
 date: 2026-03-24
 links: []
@@ -19,8 +19,8 @@ Everything else followed from that:
 - Each installment took about an hour to set up by hand, from inventory manifests processed on individual laptops.
 - Work on a contract paused until its terms settled. Inventory waited in storage, costs climbed, and fulfillment time stretched past a week.
 
-## My role
-I worked this as both a manager and an engineer, across three teams:
+## My Role
+I worked this as leader and engineer, across three teams:
 - Team 1 ran the day-to-day processing.
 - Team 2 owned the contracts and the relationships with buyers.
 - Team 3, a platform engineering team, owned the part of the system that couldn't change.
