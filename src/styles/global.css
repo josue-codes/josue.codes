@@ -335,12 +335,6 @@ p {
   color: var(--accent);
 }
 
-.nav-source svg {
-  width: 1em;
-  height: 1em;
-  fill: currentColor;
-}
-
 .nav-home {
   display: block;
   border-radius: 50%;
@@ -1099,6 +1093,38 @@ img.portrait {
   color: var(--accent);
 }
 
+/* ---------- Legal pages: a summary box, then the full text ---------- */
+.legal .case-header .muted {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.tldr {
+  margin-top: 1.75rem;
+  padding: 1.1rem 1.3rem 1.2rem;
+  border-radius: var(--radius);
+  background: var(--tint);
+  border: 1px solid var(--rule);
+}
+
+.tldr h2 {
+  margin: 0 0 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+.tldr ul {
+  margin: 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.tldr li::marker {
+  color: var(--accent);
+}
+
 /* ---------- Simple pages (404) ---------- */
 .simple {
   padding-block: clamp(3rem, 10vw, 6rem);
@@ -1126,19 +1152,89 @@ img.portrait {
   gap: 1rem 2rem;
 }
 
-.footer-brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  color: var(--ink);
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 1.05rem;
+/* "Legalese": one label, the four legal links in a small pop-up above it. Opens on hover, on keyboard focus,
+   or (with JavaScript) on tap. The padding on the menu bridges the gap so moving the pointer up keeps it open. */
+.legalese {
+  position: relative;
 }
 
-.footer-brand .mark {
-  width: 1.5rem;
-  height: 1.5rem;
+.legalese-toggle {
+  font: 400 0.875rem/1.4 var(--font-mono);
+  color: var(--muted);
+  background: none;
+  border: 0;
+  padding: 0.25rem 0;
+  cursor: pointer;
+  text-decoration: underline dotted;
+  text-decoration-color: var(--rule-strong);
+  text-underline-offset: 0.3em;
+}
+
+.legalese-toggle::before {
+  content: '// ';
+  content: '// ' / '';
+  color: var(--comment);
+}
+
+.legalese:hover .legalese-toggle,
+.legalese.is-open .legalese-toggle {
+  color: var(--accent);
+}
+
+.legalese-menu {
+  display: none;
+  position: absolute;
+  z-index: 20;
+  left: -0.75rem;
+  bottom: 100%;
+  margin: 0;
+  padding: 0 0 0.6rem;
+  list-style: none;
+  min-width: max-content;
+}
+
+.legalese:hover .legalese-menu,
+.legalese:focus-within .legalese-menu,
+.legalese.is-open .legalese-menu {
+  display: block;
+}
+
+.legalese-menu li {
+  background: var(--surface);
+  border-inline: 1px solid var(--rule-strong);
+}
+
+.legalese-menu li:first-child {
+  border-top: 1px solid var(--rule-strong);
+  border-radius: 0.6rem 0.6rem 0 0;
+  padding-top: 0.4rem;
+}
+
+.legalese-menu li:last-child {
+  border-bottom: 1px solid var(--rule-strong);
+  border-radius: 0 0 0.6rem 0.6rem;
+  padding-bottom: 0.4rem;
+  box-shadow: var(--shadow);
+}
+
+.legalese-menu a {
+  display: block;
+  padding: 0.4rem 0.9rem;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.legalese-menu a:hover,
+.legalese-menu a[aria-current='page'] {
+  color: var(--accent);
+  background: var(--tint);
+}
+
+.icon {
+  width: 1em;
+  height: 1em;
+  flex: none;
+  fill: currentColor;
 }
 
 .contact-row {
@@ -1151,6 +1247,9 @@ img.portrait {
 }
 
 .contact-row a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
   color: var(--ink);
   text-decoration-color: transparent;
 }

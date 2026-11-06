@@ -15,4 +15,16 @@ const work = defineCollection({
   }),
 });
 
-export const collections = { work };
+// Legal pages (privacy, terms, cookies, accessibility). The file name is the URL: privacy.md -> /privacy/.
+// The TL;DR lines render as a summary box above the full text.
+const legal = defineCollection({
+  loader: glob({ base: './src/content/legal', pattern: '*.md' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    updated: z.coerce.date(),
+    tldr: z.array(z.string()).min(1),
+  }),
+});
+
+export const collections = { work, legal };

@@ -3,6 +3,7 @@ import '../styles/global.css';
 import { site } from '../site';
 import { palettes, DEFAULT_PALETTE, DEFAULT_MODE } from '../themes';
 import Mark from '../components/Mark.astro';
+import Icon from '../components/Icon.astro';
 import { Image } from 'astro:assets';
 
 interface Props {
@@ -11,7 +12,13 @@ interface Props {
 }
 
 const { title, description = site.positioning } = Astro.props;
-const pageTitle = title ? `${title} | ${site.name}` : site.name;
+const pageTitle = title ? `${title} | ${site.displayName}` : site.displayName;
+const legalPages = [
+  { href: '/privacy/', label: 'Privacy Policy' },
+  { href: '/terms/', label: 'Terms of Use' },
+  { href: '/cookies/', label: 'Cookie Policy' },
+  { href: '/accessibility/', label: 'Accessibility Statement' },
+];
 const path = Astro.url.pathname;
 const current = (href: string) => (href === '/' ? path === '/' : path.startsWith(href)) ? 'page' : undefined;
 const paletteIds = palettes.map((p) => p.id);
@@ -60,13 +67,7 @@ const paletteIds = palettes.map((p) => p.id);
           </a>
           <div class="nav-group nav-right">
             <a href={`mailto:${site.email}`}>Email</a>
-            <a class="nav-source" href={site.source}>
-              <svg viewBox="0 0 16 16" aria-hidden="true"
-                ><path
-                  d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
-                ></path></svg
-              >Source
-            </a>
+            <a href={site.source}><Icon name="github" />Source</a>
           </div>
         </nav>
         <div class="prefs" role="group" aria-label="Appearance">
@@ -93,15 +94,51 @@ const paletteIds = palettes.map((p) => p.id);
     </main>
     <footer class="site-footer">
       <div class="shell">
-        <span class="footer-brand"><Mark /> {site.name}</span>
+        {/* Legal links sit behind one label. Hover or keyboard focus opens them; a tap toggles them (script below). */}
+        <div class="legalese">
+          <button class="legalese-toggle" type="button" aria-expanded="false" aria-controls="legal-links">
+            Legalese
+          </button>
+          <ul id="legal-links" class="legalese-menu">
+            {
+              legalPages.map((p) => (
+                <li>
+                  <a href={p.href} aria-current={current(p.href)}>
+                    {p.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
         <ul class="contact-row">
-          <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
-          <li><a href={site.linkedin} rel="me">LinkedIn</a></li>
-          <li><a href={site.github} rel="me">GitHub</a></li>
-          <li><a href={site.source}>Page source</a></li>
+          <li><a href={site.linkedin} rel="me"><Icon name="linkedin" />LinkedIn</a></li>
+          <li><a href={site.github} rel="me"><Icon name="github" />GitHub</a></li>
+          <li><a href={site.source}><Icon name="github" />Source</a></li>
         </ul>
       </div>
     </footer>
+    {/* Legalese menu: tap or Enter toggles it, Escape or a click elsewhere closes it. */}
+    <script is:inline>
+      (() => {
+        const wrap = document.querySelector('.legalese');
+        const button = wrap.querySelector('.legalese-toggle');
+        const set = (open) => {
+          wrap.classList.toggle('is-open', open);
+          button.setAttribute('aria-expanded', String(open));
+        };
+        button.addEventListener('click', () => set(!wrap.classList.contains('is-open')));
+        document.addEventListener('click', (e) => {
+          if (!wrap.contains(e.target)) set(false);
+        });
+        wrap.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            set(false);
+            button.focus();
+          }
+        });
+      })();
+    </script>
     {/* Theme controls. Without JavaScript they stay hidden and the page uses the defaults set on <html>. */}
     <script is:inline>
       (() => {
