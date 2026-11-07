@@ -93,9 +93,9 @@ const source: Stop = {
   mark: 'joined',
   date: 'Jun 2023',
   when: 'Jun 2023 – Sep 2025',
-  title: 'Software Developer',
+  title: 'Software Developer (Contract)',
   org: 'Source Software',
-  place: 'Orlando, FL',
+  place: 'Remote',
   note: 'parallel, alongside b-stock',
   bullets: [
     'With a small team, built an all-in-one operations platform (inventory, orders, invoicing, payments, payroll, time tracking and lead tracking) on Ruby on Rails, PostgreSQL and AWS.',
@@ -136,11 +136,11 @@ const specialist: Stop = {
   org: 'B-Stock',
   place: 'Remote',
   bullets: [
-    'Replaced manual listing steps with Python automation, and kept the gain through process and platform changes.',
-    'Onboarded 20+ sellers onto automated listing pipelines.',
-    'Built Airflow pipelines for bulk upload, titling and auction scheduling.',
+    'Cut manual processing time 80% with Python scripts converting manifests into upload-ready files.',
+    'Reduced disputes 15% by introducing a desktop app flagging live listing inconsistencies and seller rule violations.',
+    'Enabled teammates to replicate time savings in their own automation projects through mentorship.',
   ],
-  result: ['Manual processing time cut by 80%.'],
+  result: ['Key Outcomes: Reduced a 20-person team’s manual workload, improving accuracy and supporting more work without additional hiring.'],
 };
 
 const valencia: Stop = {
@@ -179,7 +179,7 @@ export const resume = {
   glance: [
     '20+ sellers onboarded onto automated listing pipelines',
     'Errors eliminated in every automated step',
-    '2,200+ tests behind the pipeline framework',
+    'Reduced a 20-person team’s manual workload, improving accuracy and supporting more work without additional hiring',
   ],
   caps: { bottom: '2012 · the start' },
   zones: [
