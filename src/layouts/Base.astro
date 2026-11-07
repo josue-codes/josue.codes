@@ -67,7 +67,7 @@ const paletteIds = palettes.map((p) => p.id);
             {site.photo ? <Image src={site.photo} alt="" width={80} densities={[1, 2]} loading="eager" /> : <Mark />}
           </a>
           <div class="nav-group nav-right">
-            <a href={`mailto:${site.email}`}>Email</a>
+            <a href="/contact/" aria-current={current('/contact/')}>Contact</a>
             <a href={site.source}><Icon name="github" />Source</a>
           </div>
         </nav>

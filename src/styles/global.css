@@ -394,6 +394,10 @@ p {
   .site-nav {
     font-size: 0.875rem;
   }
+
+  .nav-group a {
+    padding: 0.35rem 0.3rem;
+  }
 }
 
 .prefs {
@@ -1063,6 +1067,17 @@ img.portrait {
 
 .about .lede {
   margin-bottom: 1.5rem;
+}
+
+/* ---------- Contact ---------- */
+.contact {
+  max-width: 36rem;
+  padding-block: clamp(2rem, 5vw, 4rem) clamp(2.5rem, 5vw, 4rem);
+}
+
+.contact h1 {
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  margin-bottom: 0.5rem;
 }
 
 .about-actions {
