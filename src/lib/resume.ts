@@ -28,18 +28,19 @@ export interface Stop {
   title: string;
   org: string;
   place: string;
-  /** Mono suffix after the organization in the eyebrow, e.g. "promotion · current". */
+  /** The comment line above the title, e.g. "promotion". Only for what the card doesn't already say. */
   note?: string;
   bullets: string[];
   result?: Rich;
 }
 
-/** A merge commit on main: the moment a branch rejoined the journey. Rendered as a slim row with a plain-words note. */
+/** A merge commit on main: the moment a branch rejoined the journey. Rendered as a slim row, with a plain-words note
+ * when one is given. */
 export interface Merge {
   type: 'merge';
   id: string;
   date: string;
-  note: string;
+  note?: string;
   /** Leaves room below for a lane to emerge from main before the next branch starts beside it. */
   tall?: boolean;
 }
@@ -48,7 +49,6 @@ export type Row = Stop | Merge;
 
 /** An era band. Rows are newest first. */
 export interface Zone {
-  label: string;
   name: string;
   dates: string;
   rows: Row[];
@@ -78,7 +78,7 @@ const manager: Stop = {
   title: 'Manager, Process Automation',
   org: 'B-Stock',
   place: 'Orlando, FL',
-  note: 'promotion · current',
+  note: 'promotion',
   bullets: [
     'Lead a four-person Process Automation team; hired and trained a new specialist and made AI-assisted code review part of every change.',
     'Introduced agentic engineering: an 11-stage, human-gated agent pipeline for seller cloud migrations, plus internal Claude Code plugins for onboarding and SDLC orchestration.',
@@ -93,10 +93,9 @@ const source: Stop = {
   mark: 'joined',
   date: 'Jun 2023',
   when: 'Jun 2023 – Sep 2025',
-  title: 'Software Developer',
+  title: 'Software Developer (Contract)',
   org: 'Source Software',
-  place: 'Orlando, FL',
-  note: 'parallel, alongside b-stock',
+  place: 'Remote',
   bullets: [
     'With a small team, built an all-in-one operations platform (inventory, orders, invoicing, payments, payroll, time tracking and lead tracking) on Ruby on Rails, PostgreSQL and AWS.',
   ],
@@ -136,11 +135,11 @@ const specialist: Stop = {
   org: 'B-Stock',
   place: 'Remote',
   bullets: [
-    'Replaced manual listing steps with Python automation, and kept the gain through process and platform changes.',
-    'Onboarded 20+ sellers onto automated listing pipelines.',
-    'Built Airflow pipelines for bulk upload, titling and auction scheduling.',
+    'Cut manual processing time 80% with Python scripts converting manifests into upload-ready files.',
+    'Reduced disputes 15% by introducing a desktop app flagging live listing inconsistencies and seller rule violations.',
+    'Enabled teammates to replicate time savings in their own automation projects through mentorship.',
   ],
-  result: ['Manual processing time cut by ', { confirm: '80% / 88%, owner to confirm' }, '.'],
+  result: ['Key Outcomes: Reduced a 20-person team’s manual workload, improving accuracy and supporting more work without additional hiring.'],
 };
 
 const valencia: Stop = {
@@ -179,28 +178,25 @@ export const resume = {
   glance: [
     '20+ sellers onboarded onto automated listing pipelines',
     'Errors eliminated in every automated step',
-    '2,200+ tests behind the pipeline framework',
+    'Reduced a 20-person team’s manual workload, improving accuracy and supporting more work without additional hiring',
   ],
-  caps: { bottom: '2012 · the start' },
   zones: [
     {
-      label: 'zone 1',
       name: 'Leadership',
       dates: '2023 – now',
       rows: [
-        { type: 'merge', id: 'merge-source', date: 'Sep 2025', note: 'source software merged into main' },
+        { type: 'merge', id: 'merge-source', date: 'Sep 2025' },
         manager,
         source,
         supervisor,
       ],
     },
-    { label: 'zone 2', name: 'Automation Engineering', dates: '2021 – 2023', rows: [specialist] },
+    { name: 'Automation Engineering', dates: '2021 – 2023', rows: [specialist] },
     {
-      label: 'zone 3',
       name: 'Hospitality Operations',
       dates: '2012 – 2021',
       rows: [
-        { type: 'merge', id: 'merge-universal', date: '2021', note: 'universal orlando merged into main', tall: true },
+        { type: 'merge', id: 'merge-universal', date: '2021', tall: true },
         valencia,
         universal,
       ],
