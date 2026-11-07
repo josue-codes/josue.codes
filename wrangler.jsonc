@@ -10,11 +10,13 @@
   // Custom Domains: Cloudflare creates the DNS records and certificates for these names only. Other records on
   // the zone (the iCloud MX records for email) are left alone.
   "routes": [
-    { "pattern": "josue.codes", "custom_domain": true },
+    // previews_enabled also serves each pull-request Preview at <branch>.josue.codes. Production stays on (never set
+    // "enabled": false here, which would make the route preview-only and take the live site off josue.codes).
+    { "pattern": "josue.codes", "custom_domain": true, "previews_enabled": true },
     { "pattern": "www.josue.codes", "custom_domain": true }
   ],
-  // Pull-request builds run `npx wrangler preview`, which needs this block (empty is fine). Previews get a public
-  // workers.dev URL; the custom-domain routes above stay production-only.
+  // Pull-request builds run `npx wrangler preview`, which needs this block (empty is fine). Previews are public, on
+  // <branch>.josue.codes and on workers.dev.
   "preview_urls": true,
   "previews": {}
 }
