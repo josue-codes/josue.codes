@@ -177,7 +177,7 @@ export const resume = {
   /** Three measured results, shown in the second syntax color like the Work page's outcomes. */
   glance: [
     '20+ sellers onboarded onto automated listing pipelines',
-    'Errors eliminated in every automated step',
+    'Guided my team to replace one-off work with reusable systems, scaling the business while continually buying back operational time',
     'Reduced a 20-person team’s manual workload, improving accuracy and supporting more work without additional hiring',
   ],
   zones: [
