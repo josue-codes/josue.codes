@@ -174,7 +174,7 @@ const universal: Stop = {
 
 export const resume = {
   summary:
-    'I help teams agree on what needs to change, then lead the work and write the code to make it last. Over five-plus years at B-Stock, I’ve earned promotions from automation specialist through supervisor to Manager of Process Automation. With an engineer’s understanding of the code and an operator’s understanding of the work, I guide teams to build reusable systems, improve development practices and reduce manual work.',
+    'I help teams agree on what needs to change and why, then lead the work and write the code to make it last. Over five-plus years at B-Stock, I’ve earned promotions from automation specialist through supervisor to Manager of Process Automation. With an engineer’s understanding of the code and an operator’s understanding of the work, I guide teams to build reusable systems, improve development practices and reduce manual work.',
   /** Three measured results, shown in the second syntax color like the Work page's outcomes. */
   glance: [
     'Changed how teams build and operate, pairing faster engineering with organization-wide automation',
