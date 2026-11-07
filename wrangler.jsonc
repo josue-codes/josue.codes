@@ -12,5 +12,9 @@
   "routes": [
     { "pattern": "josue.codes", "custom_domain": true },
     { "pattern": "www.josue.codes", "custom_domain": true }
-  ]
+  ],
+  // Pull-request builds run `npx wrangler preview`, which needs this block (empty is fine). Previews get a public
+  // workers.dev URL; the custom-domain routes above stay production-only.
+  "preview_urls": true,
+  "previews": {}
 }
