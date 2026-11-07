@@ -361,14 +361,15 @@ p {
   }
 }
 
-/* Narrow: photo on top, the links in one row under it. */
+/* Narrow: photo on top, the five links in one row under it. The link padding shrinks so Work, About, Résumé, Email
+   and Source still fit on one line at 390px; the smallest phones get a slightly smaller face too. */
 @media (max-width: 34rem) {
   .site-nav {
     grid-template-columns: auto auto;
     grid-template-areas: 'home home' 'left right';
     justify-content: center;
-    gap: 0.75rem 0.25rem;
-    font-size: 0.95rem;
+    gap: 0.75rem 0.1rem;
+    font-size: 0.925rem;
   }
 
   .nav-home {
@@ -385,7 +386,13 @@ p {
   }
 
   .nav-group a {
-    padding: 0.35rem 0.55rem;
+    padding: 0.35rem 0.4rem;
+  }
+}
+
+@media (max-width: 23rem) {
+  .site-nav {
+    font-size: 0.875rem;
   }
 }
 
@@ -1123,6 +1130,447 @@ img.portrait {
 
 .tldr li::marker {
   color: var(--accent);
+}
+
+/* ---------- Résumé: page header ---------- */
+/* The summary on the left; three measured results on the right in the Work page's outcome box. */
+.resume-head {
+  display: grid;
+  gap: 1.75rem 4rem;
+  padding-block: clamp(2rem, 5vw, 3.5rem) 2.25rem;
+}
+
+@media (min-width: 48rem) {
+  .resume-head {
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    align-items: start;
+  }
+}
+
+.resume-copy {
+  max-width: 38rem;
+}
+
+.resume-head h1 {
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  margin-bottom: 0.85rem;
+}
+
+.resume-head .lede {
+  margin: 0 0 1.25rem;
+}
+
+.resume-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+}
+
+.glance {
+  margin: 0;
+  padding: 1rem 1.15rem 1.1rem;
+  border-radius: var(--radius);
+  background: var(--tint);
+}
+
+.glance .eyebrow {
+  margin-bottom: 0.5rem;
+}
+
+.glance ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.glance li {
+  color: var(--second);
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  line-height: 1.35;
+  letter-spacing: -0.005em;
+  text-wrap: pretty;
+}
+
+/* A number the owner still has to confirm: a flagged placeholder, never plain copy. */
+mark.confirm {
+  background: transparent;
+  color: inherit;
+  font: 400 0.9em/1 var(--font-mono);
+  border-bottom: 2px dotted var(--accent);
+  padding-bottom: 0.05em;
+  cursor: help;
+}
+
+/* ---------- Résumé: the journey as a branch-and-merge graph ---------- */
+/* Main is the journey, a hairline down lane 0 that tints toward the accent as the reader scrolls. Every job and the
+   degree is a branch in lane 1 (the primary job of the time) or lane 2 (whatever ran alongside it). Three lanes
+   are enough at every width because the primary jobs never overlap each other and neither do the side tracks.
+   The lanes are SVG paths computed from the stops' positions (see resume.astro); the stops themselves are CSS. */
+.journey-eyebrow {
+  margin-bottom: 0.25rem;
+}
+
+.branches-legend {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.4rem;
+  margin: 0.75rem 0 0.25rem;
+  padding: 0;
+  font: 400 0.875rem/1.4 var(--font-mono);
+  color: var(--muted);
+}
+
+.branches-legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.branches-legend i {
+  display: inline-block;
+  flex: none;
+  border-radius: 50%;
+  background: var(--paper);
+  margin-inline: 0.2rem;
+}
+
+.branches-legend .l-joined {
+  width: 0.65rem;
+  height: 0.65rem;
+  box-shadow: 0 0 0 3px var(--accent);
+}
+
+.branches-legend .l-promotion {
+  width: 0.5rem;
+  height: 0.5rem;
+  box-shadow: 0 0 0 2px var(--accent);
+}
+
+.branches {
+  position: relative;
+  margin: 1rem 0 0;
+  --col: 3.25rem;
+  --lane0: 0.55rem;
+  --lane1: 1.6rem;
+  --lane2: 2.65rem;
+}
+
+@media (min-width: 48rem) {
+  .branches {
+    --col: 4.5rem;
+    --lane0: 0.75rem;
+    --lane1: 2.25rem;
+    --lane2: 3.75rem;
+  }
+}
+
+.branches-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.branches-svg path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.branches-svg .b-base,
+.branches-svg .b-lane {
+  stroke: var(--rule-strong);
+  stroke-width: 1.5;
+}
+
+.branches-svg .b-main {
+  stroke: color-mix(in srgb, var(--accent) 78%, var(--paper));
+  stroke-width: 2;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .branches.is-live .b-main {
+    transition: stroke-dashoffset 420ms ease-out;
+  }
+}
+
+.branches-list,
+.branches-stops {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Every row shares one grid, so the lanes line up: [date gutter] [lanes] [content]. The gutter appears at 48rem;
+   below that the dates live in the cards and the merge notes. */
+.branches-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--col) minmax(0, 1fr);
+  column-gap: 0.75rem;
+}
+
+@media (min-width: 48rem) {
+  .branches-row {
+    grid-template-columns: 6.5rem var(--col) minmax(0, 1fr);
+    column-gap: 1rem;
+  }
+}
+
+.branches-date {
+  display: none;
+  font: 400 0.875rem/1.4 var(--font-mono);
+  color: var(--muted);
+  text-align: right;
+  padding-top: 0.35rem;
+}
+
+@media (min-width: 48rem) {
+  .branches-date {
+    display: block;
+  }
+}
+
+.branches-lanes {
+  position: relative;
+}
+
+/* Era bands, alternating paper and tint, each opened by a one-line zone label. */
+.branches-zone {
+  margin-block: 0.4rem;
+  padding-block: 1rem 0;
+  border-radius: var(--radius);
+}
+
+.branches-zone[data-tint] {
+  background: var(--tint);
+}
+
+.branches-zone-head .eyebrow {
+  margin: 0 0 0.6rem;
+  padding-top: 0.1rem;
+}
+
+.branches-zone-head .eyebrow b {
+  font-weight: 400;
+  color: var(--ink);
+}
+
+.branches-zone .stop-card {
+  padding-right: 1rem;
+}
+
+.branches-stops > li:last-child .stop-card {
+  padding-bottom: 1.5rem;
+}
+
+.branches-cap {
+  height: 2.75rem;
+}
+
+.branches-caption {
+  font: 400 0.875rem/1.4 var(--font-mono);
+  color: var(--muted);
+  align-self: start;
+}
+
+.branches-cap-bottom .branches-caption {
+  align-self: end;
+}
+
+/* Merge commits on main: a slim row with the date in the gutter and a plain-words note. The tall one leaves room
+   for the Universal lane to emerge before the Valencia loop starts beside it. */
+.branches-event {
+  min-height: 2.75rem;
+  padding-bottom: 1.6rem;
+}
+
+.branches-event[data-tall] {
+  padding-bottom: 4.5rem;
+}
+
+.branches-note {
+  margin: 0;
+  padding-top: 0.3rem;
+  font: 400 0.875rem/1.4 var(--font-mono);
+  color: var(--muted);
+}
+
+.branches-note::before {
+  content: '// ';
+  content: '// ' / '';
+  color: var(--comment);
+}
+
+@media (min-width: 48rem) {
+  .branches-note-date {
+    display: none;
+  }
+}
+
+/* Stops: a ring where a job started, a small hollow stop for a promotion, filled for the current role, grey for a
+   degree; small grey stops on main for the merges and the caps. The paper halo keeps a lane from touching a stop. */
+.branches-node {
+  position: absolute;
+  left: var(--lx, var(--lane0));
+  top: 0.7rem;
+  width: 1rem;
+  height: 1rem;
+  translate: -50% 0;
+  border-radius: 50%;
+  background: var(--paper);
+  box-shadow:
+    0 0 0 3px var(--accent),
+    0 0 0 6px var(--paper);
+  z-index: 1;
+}
+
+.branches-row[data-lane='1'] {
+  --lx: var(--lane1);
+}
+
+.branches-row[data-lane='2'] {
+  --lx: var(--lane2);
+}
+
+.branches-stop[data-mark='promotion'] .branches-node {
+  width: 0.65rem;
+  height: 0.65rem;
+  top: 0.85rem;
+  box-shadow:
+    0 0 0 2px var(--accent),
+    0 0 0 5px var(--paper);
+}
+
+.branches-stop[data-mark='degree'] .branches-node {
+  width: 0.65rem;
+  height: 0.65rem;
+  top: 0.85rem;
+  box-shadow:
+    0 0 0 2px var(--rule-strong),
+    0 0 0 5px var(--paper);
+}
+
+.branches-stop[data-mark='current'] .branches-node {
+  background: var(--accent);
+  box-shadow:
+    0 0 0 3px var(--paper),
+    0 0 0 4.5px var(--accent),
+    0 0 0 9px color-mix(in srgb, var(--accent) 14%, transparent);
+}
+
+.branches-event .branches-node {
+  width: 0.55rem;
+  height: 0.55rem;
+  top: 0.55rem;
+  box-shadow:
+    0 0 0 2px var(--rule-strong),
+    0 0 0 5px var(--paper);
+}
+
+.branches-cap .branches-node {
+  width: 0.5rem;
+  height: 0.5rem;
+  top: 0.3rem;
+  background: var(--rule-strong);
+  box-shadow: none;
+}
+
+.branches-cap-bottom .branches-node {
+  top: auto;
+  bottom: 0;
+}
+
+/* ---------- Résumé: stop cards and toolkit ---------- */
+.stop-card {
+  min-width: 0;
+  padding-bottom: 2.25rem;
+}
+
+.stop-card .eyebrow {
+  margin-bottom: 0.45rem;
+}
+
+.eyebrow-note {
+  color: var(--comment);
+}
+
+.stop-card h3 {
+  font-size: 1.45rem;
+  line-height: 1.2;
+  margin-bottom: 0.4rem;
+}
+
+.stop-when {
+  margin: 0 0 0.75rem;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.stop-bullets {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.45rem;
+  max-width: var(--measure);
+  color: var(--muted);
+  font-size: 0.975rem;
+  line-height: 1.6;
+}
+
+.stop-bullets li {
+  position: relative;
+  padding-left: 1.1rem;
+  text-wrap: pretty;
+}
+
+.stop-bullets li::before {
+  content: '–';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+
+.stop-result {
+  margin: 0.9rem 0 0;
+  max-width: var(--measure);
+  color: var(--second);
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  line-height: 1.4;
+  letter-spacing: -0.005em;
+  text-wrap: pretty;
+}
+
+.skills {
+  display: grid;
+  gap: 1.25rem 2.5rem;
+  margin: 1.25rem 0 0;
+}
+
+@media (min-width: 40rem) {
+  .skills {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+
+.skills dt {
+  margin-bottom: 0.35rem;
+}
+
+.skills dd {
+  margin: 0;
+  font-size: 0.975rem;
+  line-height: 1.55;
+  color: var(--muted);
 }
 
 /* ---------- Simple pages (404) ---------- */

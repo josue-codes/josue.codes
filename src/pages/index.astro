@@ -17,7 +17,7 @@ const featured = work[0];
       {site.openTo && <p class="status">{site.openTo}</p>}
       <div class="hero-actions">
         <a class="button" href={`mailto:${site.email}`}>Email me</a>
-        {site.resumeUrl && <a class="button button-secondary" href={site.resumeUrl}>Resume</a>}
+        <a class="button button-secondary" href="/resume/">Résumé</a>
         {featured && <a href={`/work/${featured.id}/`}>Read a case study<span class="arrow">→</span></a>}
       </div>
     </div>

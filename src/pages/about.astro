@@ -18,15 +18,9 @@ const githubHandle = site.github.replace(/^https?:\/\/(www\.)?/, '').replace(/\/
         I lead an engineering team and I write code. I do both at B-Stock, and most of that work is private, so the case studies
         here describe it within the limits of my confidentiality obligations.
       </p>
-      {
-        site.resumeUrl && (
-          <p class="about-actions">
-            <a class="button" href={site.resumeUrl}>
-              Resume
-            </a>
-          </p>
-        )
-      }
+      <p class="about-actions">
+        <a class="button" href="/resume/">Résumé</a>
+      </p>
       <dl class="contact-list">
         <div>
           <dt class="eyebrow">Email</dt>

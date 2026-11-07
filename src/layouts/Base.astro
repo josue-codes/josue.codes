@@ -61,7 +61,7 @@ const paletteIds = palettes.map((p) => p.id);
           <div class="nav-group nav-left">
             <a href="/work/" aria-current={current('/work/')}>Work</a>
             <a href="/about/" aria-current={current('/about/')}>About</a>
-            {site.resumeUrl && <a href={site.resumeUrl}>Resume</a>}
+            <a href="/resume/" aria-current={current('/resume/')}>Résumé</a>
           </div>
           <a class="nav-home" href="/" aria-label={`${site.name}, home`} aria-current={current('/')}>
             {site.photo ? <Image src={site.photo} alt="" width={80} densities={[1, 2]} loading="eager" /> : <Mark />}
