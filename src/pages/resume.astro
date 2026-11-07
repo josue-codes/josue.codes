@@ -1,0 +1,272 @@
+---
+// The résumé as one journey: main is the career, each job and the degree is a branch that forks from main when it
+// starts and merges back when it ends. Content lives in src/lib/resume.ts; this page lays it out and a small script
+// draws the lanes between the stops. Without JavaScript the list still reads top to bottom, newest first.
+import Base from '../layouts/Base.astro';
+import { site } from '../site';
+import { resume, type Rich } from '../lib/resume';
+
+const description =
+  'Five-plus years at B-Stock, from listing specialist to Manager of Process Automation, drawn as one journey with its branches.';
+const isConfirm = (part: Rich[number]): part is { confirm: string } => typeof part !== 'string';
+---
+
+<Base title="Résumé" description={description}>
+  <header class="resume-head">
+    <div class="resume-copy">
+      <h1>{site.displayName}</h1>
+      <p class="lede">{resume.summary}</p>
+      {
+        /* The PDF button appears once site.resumeUrl points at a file; until then there is nothing to download. */
+        site.resumeUrl && (
+          <div class="resume-actions">
+            <a class="button" href={site.resumeUrl}>Download PDF</a>
+          </div>
+        )
+      }
+    </div>
+    <div class="glance">
+      <p class="eyebrow">At a glance</p>
+      <ul>
+        {resume.glance.map((line) => <li>{line}</li>)}
+      </ul>
+    </div>
+  </header>
+
+  <section class="section" aria-labelledby="journey-heading">
+    <p class="eyebrow journey-eyebrow">Résumé</p>
+    <div class="section-head">
+      <h2 id="journey-heading">One Life, Many Branches</h2>
+    </div>
+    <ul class="branches-legend" aria-label="Legend">
+      <li><i class="l-joined"></i>joined</li>
+      <li><i class="l-promotion"></i>promotion</li>
+    </ul>
+
+    <div class="branches" data-branches={JSON.stringify(resume.branches)}>
+      <svg class="branches-svg" aria-hidden="true" focusable="false">
+        {resume.branches.map((branch) => <path class="b-lane" data-path={branch.id} />)}
+        <path class="b-base" data-path="main"></path>
+        <path class="b-main" data-path="progress"></path>
+      </svg>
+      <ol class="branches-list">
+        <li class="branches-row branches-cap branches-cap-top">
+          <span class="branches-date"></span>
+          <span class="branches-lanes"><span class="branches-node" data-node="top"></span></span>
+        </li>
+        {
+          resume.zones.map((zone, index) => (
+            <li class="branches-zone" data-tint={index % 2 === 0 ? '' : undefined}>
+              <div class="branches-row branches-zone-head">
+                <span class="branches-date"></span>
+                <span class="branches-lanes"></span>
+                <p class="eyebrow">
+                  {zone.label} · <b>{zone.name}</b> · {zone.dates}
+                </p>
+              </div>
+              <ol class="branches-stops">
+                {zone.rows.map((row) =>
+                  row.type === 'merge' ? (
+                    <li class="branches-row branches-event" data-tall={row.tall ? '' : undefined}>
+                      <span class="branches-date">{row.date}</span>
+                      <span class="branches-lanes"><span class="branches-node" data-node={row.id}></span></span>
+                      <p class="branches-note">
+                        <span class="branches-note-date">{row.date.toLowerCase()} · </span>
+                        {row.note}
+                      </p>
+                    </li>
+                  ) : (
+                    <li class="branches-row branches-stop" data-lane={row.lane} data-mark={row.mark}>
+                      <span class="branches-date">{row.date}</span>
+                      <span class="branches-lanes"><span class="branches-node" data-node={row.id}></span></span>
+                      <article class="stop-card">
+                        <p class="eyebrow">
+                          {row.org}
+                          {row.note && <span class="eyebrow-note"> · {row.note}</span>}
+                        </p>
+                        <h3>{row.title}</h3>
+                        <p class="stop-when">
+                          {row.org} · {row.place} · {row.when}
+                        </p>
+                        <ul class="stop-bullets">
+                          {row.bullets.map((bullet) => <li>{bullet}</li>)}
+                        </ul>
+                        {row.result && (
+                          <p class="stop-result">
+                            {row.result.map((part) =>
+                              isConfirm(part) ? (
+                                <>
+                                  [<mark class="confirm" title="Placeholder: a number the owner still has to confirm">{part.confirm}</mark>]
+                                </>
+                              ) : (
+                                part
+                              ),
+                            )}
+                          </p>
+                        )}
+                      </article>
+                    </li>
+                  ),
+                )}
+              </ol>
+            </li>
+          ))
+        }
+        <li class="branches-row branches-cap branches-cap-bottom">
+          <span class="branches-date"></span>
+          <span class="branches-lanes"><span class="branches-node" data-node="bottom"></span></span>
+          <span class="branches-caption">{resume.caps.bottom}</span>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="toolkit-heading">
+    <div class="section-head">
+      <h2 id="toolkit-heading">Toolkit</h2>
+      <p class="muted">What the work above was built with.</p>
+    </div>
+    <dl class="skills">
+      {
+        resume.skills.map(([group, items]) => (
+          <div>
+            <dt class="eyebrow">{group}</dt>
+            <dd>{items}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </section>
+</Base>
+
+<script>
+  // Draws the lanes. CSS lays out the list; this measures where each stop landed and draws main and the branches
+  // as SVG paths behind them, so the graph follows the content at any width. It redraws on resize and once the
+  // fonts have loaded. Main's accent tint follows the scroll; readers who prefer reduced motion get it fully drawn.
+  import type { Branch } from '../lib/resume';
+
+  type Pt = { x: number; y: number };
+
+  const host = document.querySelector<HTMLElement>('.branches');
+  const svg = host?.querySelector<SVGSVGElement>('.branches-svg');
+
+  if (host && svg) {
+    const branches: Branch[] = JSON.parse(host.dataset.branches ?? '[]');
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+    const f = (n: number) => Math.round(n * 10) / 10;
+    const M = (p: Pt) => `M ${f(p.x)} ${f(p.y)}`;
+    const L = (p: Pt) => ` L ${f(p.x)} ${f(p.y)}`;
+    // A smooth S-bend between two points with vertical tangents at both ends; k is how long the bend takes.
+    const bend = (a: Pt, b: Pt, k = 24) => ` C ${f(a.x)} ${f(a.y + k)} ${f(b.x)} ${f(b.y - k)} ${f(b.x)} ${f(b.y)}`;
+    const path = (name: string) => svg.querySelector<SVGPathElement>(`[data-path="${name}"]`);
+    const progress = path('progress');
+    let extent = { length: 0, top: 0, height: 1 };
+
+    const measure = () => {
+      const box = host.getBoundingClientRect();
+      const nodes: Record<string, Pt> = {};
+      host.querySelectorAll<HTMLElement>('[data-node]').forEach((el) => {
+        const r = el.getBoundingClientRect();
+        nodes[el.dataset.node ?? ''] = { x: r.left - box.left + r.width / 2, y: r.top - box.top + r.height / 2 };
+      });
+      return nodes;
+    };
+
+    // The part of main above the viewport's lower edge is drawn in the accent.
+    const tint = () => {
+      if (!progress) return;
+      if (reduced.matches) {
+        progress.style.strokeDashoffset = '0';
+        return;
+      }
+      const top = host.getBoundingClientRect().top + extent.top;
+      const fraction = Math.min(1, Math.max(0, (innerHeight * 0.88 - top) / extent.height));
+      progress.style.strokeDashoffset = `${extent.length * (1 - fraction)}`;
+    };
+
+    const draw = () => {
+      if (!host.clientWidth || !progress) return;
+      const width = host.clientWidth;
+      const height = host.clientHeight;
+      svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+      svg.setAttribute('width', String(width));
+      svg.setAttribute('height', String(height));
+
+      const n = measure();
+      const mainX = n.top.x;
+      const laneX = (lane: number) => {
+        const owner = branches.find((b) => b.lane === lane && !b.parent);
+        return owner ? n[owner.stops[0]].x : mainX;
+      };
+
+      const main = M(n.top) + L(n.bottom);
+      path('main')?.setAttribute('d', main);
+      progress.setAttribute('d', main);
+
+      for (const branch of branches) {
+        const x = laneX(branch.lane);
+        let d = '';
+        if (branch.parent) {
+          // A loop off the parent lane around the single stop, kept below where that lane has fully emerged.
+          const px = laneX(branch.parent);
+          const stop = n[branch.stops[0]];
+          const parents = branches.filter(
+            (b) => b.lane === branch.parent && b.top && 'merge' in b.top && n[b.top.merge].y < stop.y,
+          );
+          const floor = parents.reduce(
+            (y, b) => Math.max(y, n[(b.top as { merge: string }).merge].y + 52),
+            Number.NEGATIVE_INFINITY,
+          );
+          const top = Math.max(stop.y - 56, floor);
+          const k = Math.min(21, (stop.y - 14 - top) / 2);
+          d =
+            M({ x: px, y: top }) +
+            bend({ x: px, y: top }, { x, y: stop.y - 14 }, k) +
+            L({ x, y: stop.y + 14 }) +
+            bend({ x, y: stop.y + 14 }, { x: px, y: stop.y + 56 }, 21);
+        } else {
+          if (branch.top && 'merge' in branch.top) {
+            const merge = n[branch.top.merge];
+            d = M(merge) + bend(merge, { x, y: merge.y + 48 });
+          } else if (branch.top) {
+            d = M({ x, y: n[branch.top.open].y });
+          }
+          for (const id of branch.stops) d += L({ x, y: n[id].y });
+          if (branch.bottom && 'above' in branch.bottom) {
+            const end = n[branch.bottom.above].y - 22;
+            d += L({ x, y: end - 48 }) + bend({ x, y: end - 48 }, { x: mainX, y: end });
+          } else if (branch.bottom) {
+            let end = n[branch.bottom.below].y + 96;
+            if (branch.bottom.before) end = Math.min(end, n[branch.bottom.before].y - 12);
+            d += L({ x, y: end - 48 }) + bend({ x, y: end - 48 }, { x: mainX, y: end });
+          }
+        }
+        path(branch.id)?.setAttribute('d', d);
+      }
+
+      const length = progress.getTotalLength();
+      const box = progress.getBBox();
+      progress.style.strokeDasharray = `${length}`;
+      extent = { length, top: box.y, height: Math.max(1, box.height) };
+      tint();
+    };
+
+    let frame = 0;
+    addEventListener(
+      'scroll',
+      () => {
+        if (frame) return;
+        frame = requestAnimationFrame(() => {
+          frame = 0;
+          tint();
+        });
+      },
+      { passive: true },
+    );
+    new ResizeObserver(draw).observe(host);
+    draw();
+    document.fonts?.ready.then(draw);
+    // The tint transition starts only after the first paint, so the page never animates in from empty.
+    requestAnimationFrame(() => requestAnimationFrame(() => host.classList.add('is-live')));
+  }
+</script>
