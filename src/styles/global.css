@@ -1080,22 +1080,49 @@ img.portrait {
   margin-bottom: 0.5rem;
 }
 
+/* The list as lines in an editor. Each row: a gutter number, the label with an accent icon in place of the eyebrow's
+   slashes, the value. One row is the cursor row: the tint band, a 2px accent bar, the number in the accent and the
+   arrow after the value. The email row is current by default (data-current); hovering or focusing another row moves
+   the cursor there, and :has() takes it off the default row meanwhile. */
 .contact-list {
   margin: 2.5rem 0 0;
   border-top: 1px solid var(--rule);
+  counter-reset: row;
 }
 
 .contact-list > div {
   display: grid;
-  grid-template-columns: 6.5rem minmax(0, 1fr);
-  align-items: baseline;
+  grid-template-columns: 1.75rem 7.75rem minmax(0, 1fr);
+  align-items: center;
   gap: 1rem;
-  padding-block: 0.75rem;
+  padding: 0.75rem 0.75rem;
+  margin-inline: -0.75rem;
   border-bottom: 1px solid var(--rule);
+  border-radius: 0.35rem;
 }
 
-.contact-list dt {
+.contact-list > div::before {
+  counter-increment: row;
+  content: counter(row);
+  font: 400 0.875rem/1.4 var(--font-mono);
+  color: var(--rule-strong);
+  text-align: right;
+}
+
+.contact-label {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
   margin: 0;
+  font: 400 0.875rem/1.4 var(--font-mono);
+  text-transform: lowercase;
+  color: var(--muted);
+}
+
+.contact-label .icon {
+  width: 1rem;
+  height: 1rem;
+  fill: var(--accent);
 }
 
 .contact-list dd {
@@ -1109,6 +1136,76 @@ img.portrait {
 
 .contact-list a:hover {
   color: var(--accent);
+}
+
+/* The arrow is part of the cursor, not a link hover: it shows on the current row. */
+.go {
+  display: inline-block;
+  margin-left: 0.3em;
+  color: var(--accent);
+  opacity: 0;
+  translate: -0.25em 0.25em;
+}
+
+.contact-list > div:is([data-current], :hover, :focus-within) {
+  background: var(--tint);
+  box-shadow: inset 2px 0 0 var(--accent);
+}
+
+.contact-list > div:is([data-current], :hover, :focus-within)::before {
+  color: var(--accent);
+}
+
+.contact-list > div:is([data-current], :hover, :focus-within) .go {
+  opacity: 1;
+  translate: 0 0;
+}
+
+.contact-list:has(> div:is(:hover, :focus-within)) > div[data-current]:not(:hover, :focus-within) {
+  background: transparent;
+  box-shadow: none;
+}
+
+.contact-list:has(> div:is(:hover, :focus-within)) > div[data-current]:not(:hover, :focus-within)::before {
+  color: var(--rule-strong);
+}
+
+.contact-list:has(> div:is(:hover, :focus-within)) > div[data-current]:not(:hover, :focus-within) .go {
+  opacity: 0;
+  translate: -0.25em 0.25em;
+}
+
+/* Narrow: the number stays on the label line and the value drops under the label text, so handles never wrap mid-word. */
+@media (max-width: 30rem) {
+  .contact-list > div {
+    grid-template-columns: 1.4rem minmax(0, 1fr);
+    gap: 0.15rem 0.75rem;
+  }
+
+  .contact-list > div::before {
+    grid-row: 1;
+  }
+
+  .contact-list dd {
+    grid-column: 2;
+    padding-left: 1.65rem;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .contact-list > div,
+  .contact-list > div::before {
+    transition:
+      background-color 150ms ease,
+      box-shadow 150ms ease,
+      color 150ms ease;
+  }
+
+  .go {
+    transition:
+      opacity 180ms ease,
+      translate 180ms ease;
+  }
 }
 
 /* ---------- Legal pages: a summary box, then the full text ---------- */
