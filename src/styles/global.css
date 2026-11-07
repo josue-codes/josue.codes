@@ -1080,10 +1080,6 @@ img.portrait {
   margin-bottom: 0.5rem;
 }
 
-.about-actions {
-  margin: 1.5rem 0 0;
-}
-
 .contact-list {
   margin: 2.5rem 0 0;
   border-top: 1px solid var(--rule);
