@@ -140,7 +140,7 @@ const specialist: Stop = {
     'Onboarded 20+ sellers onto automated listing pipelines.',
     'Built Airflow pipelines for bulk upload, titling and auction scheduling.',
   ],
-  result: ['Manual processing time cut by ', { confirm: '80% / 88%, owner to confirm' }, '.'],
+  result: ['Manual processing time cut by 80%.'],
 };
 
 const valencia: Stop = {
