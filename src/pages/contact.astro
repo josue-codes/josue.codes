@@ -1,0 +1,28 @@
+---
+// How to reach the owner: email, LinkedIn and GitHub, all from src/site.ts.
+import Base from '../layouts/Base.astro';
+import { site } from '../site';
+
+const handle = (url: string) => url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
+---
+
+<Base title="Contact" description={`How to reach ${site.displayName}.`}>
+  <section class="contact">
+    <p class="eyebrow">Contact</p>
+    <h1>Get in Touch</h1>
+    <dl class="contact-list">
+      <div>
+        <dt class="eyebrow">Email</dt>
+        <dd><a href={`mailto:${site.email}`}>{site.email}</a></dd>
+      </div>
+      <div>
+        <dt class="eyebrow">LinkedIn</dt>
+        <dd><a href={site.linkedin} rel="me">{handle(site.linkedin)}</a></dd>
+      </div>
+      <div>
+        <dt class="eyebrow">GitHub</dt>
+        <dd><a href={site.github} rel="me">{handle(site.github)}</a></dd>
+      </div>
+    </dl>
+  </section>
+</Base>
