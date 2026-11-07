@@ -1446,6 +1446,20 @@ mark.confirm {
   }
 }
 
+/* A stop's node and gutter date sit on its title's first line, below the comment line when the card has one:
+   --title-mid is that line's center (h3 1.45rem × 1.2 / 2), pushed down by the eyebrow (0.875rem × 1.4 + 0.45rem). */
+.branches-stop {
+  --title-mid: 0.87rem;
+}
+
+.branches-stop:has(.stop-card > .eyebrow) {
+  --title-mid: 2.545rem;
+}
+
+.branches-stop .branches-date {
+  padding-top: calc(var(--title-mid) - 0.6125rem);
+}
+
 .branches-lanes {
   position: relative;
 }
@@ -1466,7 +1480,13 @@ mark.confirm {
   padding-top: 0.1rem;
 }
 
-.branches-zone-head .eyebrow b {
+.branches-zone-label {
+  margin: 0;
+  padding-top: 0.3rem;
+}
+
+.branches-zone-head .eyebrow b,
+.branches-zone-label b {
   font-weight: 400;
   color: var(--ink);
 }
@@ -1574,6 +1594,12 @@ mark.confirm {
     0 0 0 9px color-mix(in srgb, var(--accent) 14%, transparent);
 }
 
+/* Every stop's node is centered on its title's first line; this follows the mark rules so it wins their `top`. */
+.branches-stop[data-mark] .branches-node {
+  top: var(--title-mid);
+  translate: -50% -50%;
+}
+
 .branches-event .branches-node {
   width: 0.55rem;
   height: 0.55rem;
@@ -1604,10 +1630,6 @@ mark.confirm {
 
 .stop-card .eyebrow {
   margin-bottom: 0.45rem;
-}
-
-.eyebrow-note {
-  color: var(--comment);
 }
 
 .stop-card h3 {
@@ -1814,3 +1836,4 @@ mark.confirm {
   color: var(--accent);
   text-decoration-color: currentColor;
 }
+
