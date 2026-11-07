@@ -1324,10 +1324,6 @@ mark.confirm {
    degree is a branch in lane 1 (the primary job of the time) or lane 2 (whatever ran alongside it). Three lanes
    are enough at every width because the primary jobs never overlap each other and neither do the side tracks.
    The lanes are SVG paths computed from the stops' positions (see resume.astro); the stops themselves are CSS. */
-.journey-eyebrow {
-  margin-bottom: 0.25rem;
-}
-
 .branches-legend {
   list-style: none;
   display: flex;
