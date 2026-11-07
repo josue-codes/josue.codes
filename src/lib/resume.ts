@@ -83,6 +83,7 @@ const manager: Stop = {
     'Lead a four-person Process Automation team; hired and trained a new specialist and made AI-assisted code review part of every change.',
     'Introduced agentic engineering: an 11-stage, human-gated agent pipeline for seller cloud migrations, plus internal Claude Code plugins for onboarding and SDLC orchestration.',
     'Driving the migration of a 75+ seller suite to a new platform.',
+    'Shipped emergency automation that cleared a six-figure inventory backlog, one of several rapid-response recoveries.',
   ],
 };
 
@@ -114,13 +115,12 @@ const supervisor: Stop = {
   place: 'Orlando, FL',
   note: 'promotion',
   bullets: [
-    'Architected a modular Python 3.11 pipeline framework on Google Cloud (Cloud Run, Cloud Storage, BigQuery), now powering listing pipelines for national retail and automotive sellers.',
-    'Led a major retailer’s listing-automation pipeline through a cross-team, end-to-end launch handling tens of thousands of listing submissions.',
-    'Shipped emergency automation that cleared a six-figure listing backlog, one of several rapid-response recoveries.',
-    'Built shared libraries: an ML categorization integration used by eight seller pipelines, and an OAuth 2.0 client that restored automated platform access.',
+    'Shortened seller automation rollout by guiding my team to architect a reusable Python framework replacing seller-specific scripts.',
+    'Enabled scalable operations by shaping replatform design and guiding my team to adapt automation.',
+    'Cut weekly invoicing from 40+ hours to ~2 by launching a multi-carrier system with carrier/seller/warehouse-specific rates.',
   ],
   result: [
-    '2,200+ tests behind the framework. Errors eliminated in every automated step; the suite’s error rate is under 5%, all of it from manual steps.',
+    'Key Outcomes: Guided my team to replace one-off work with reusable systems, scaling the business while continually buying back operational time.',
   ],
 };
 
@@ -173,11 +173,11 @@ const universal: Stop = {
 
 export const resume = {
   summary:
-    'Automation and engineering leader with five-plus years at B-Stock, promoted from listing specialist to Manager of Process Automation. I build the Python and Google Cloud pipelines that turn seller inventory manifests into live marketplace listings, and I lead the team of four migrating a 75+ seller suite to a new platform.',
+    'Automation and engineering leader with five-plus years at B-Stock, promoted from ops / automation specialist to Manager of Process Automation. I build the Python and Google Cloud pipelines that turn seller inventory manifests into live auctions, and I lead the team of four migrating a 75+ seller suite to a new platform.',
   /** Three measured results, shown in the second syntax color like the Work page's outcomes. */
   glance: [
     '20+ sellers onboarded onto automated listing pipelines',
-    'Errors eliminated in every automated step',
+    'Guided my team to replace one-off work with reusable systems, scaling the business while continually buying back operational time',
     'Reduced a 20-person team’s manual workload, improving accuracy and supporting more work without additional hiring',
   ],
   zones: [
