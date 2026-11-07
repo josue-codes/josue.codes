@@ -2,9 +2,6 @@
 import Base from '../layouts/Base.astro';
 import Portrait from '../components/Portrait.astro';
 import { site } from '../site';
-
-const linkedinHandle = site.linkedin.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
-const githubHandle = site.github.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
 ---
 
 <Base title="About">
@@ -18,23 +15,6 @@ const githubHandle = site.github.replace(/^https?:\/\/(www\.)?/, '').replace(/\/
         I lead an engineering team and I write code. I do both at B-Stock, and most of that work is private, so the case studies
         here describe it within the limits of my confidentiality obligations.
       </p>
-      <p class="about-actions">
-        <a class="button" href="/resume/">Résumé</a>
-      </p>
-      <dl class="contact-list">
-        <div>
-          <dt class="eyebrow">Email</dt>
-          <dd><a href={`mailto:${site.email}`}>{site.email}</a></dd>
-        </div>
-        <div>
-          <dt class="eyebrow">LinkedIn</dt>
-          <dd><a href={site.linkedin} rel="me">{linkedinHandle}</a></dd>
-        </div>
-        <div>
-          <dt class="eyebrow">GitHub</dt>
-          <dd><a href={site.github} rel="me">{githubHandle}</a></dd>
-        </div>
-      </dl>
     </div>
   </section>
 </Base>
