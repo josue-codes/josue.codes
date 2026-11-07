@@ -668,6 +668,12 @@ img.portrait {
   font-size: 0.95rem;
 }
 
+/* A subline that reads with its heading rather than as a far-right aside. */
+.section-head-tight {
+  justify-content: flex-start;
+  column-gap: 0.75rem;
+}
+
 .page-header {
   padding-block: clamp(2rem, 5vw, 3.5rem) 1rem;
   max-width: 38rem;
