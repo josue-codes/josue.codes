@@ -1448,14 +1448,10 @@ mark.confirm {
   }
 }
 
-/* A stop's node and gutter date sit on its title's first line, below the comment line when the card has one:
-   --title-mid is that line's center (h3 1.45rem × 1.2 / 2), pushed down by the eyebrow (0.875rem × 1.4 + 0.45rem). */
+/* A stop's node and gutter date sit on its title's first line: --title-mid is that line's center
+   (h3 1.45rem × 1.2 / 2). */
 .branches-stop {
   --title-mid: 0.87rem;
-}
-
-.branches-stop:has(.stop-card > .eyebrow) {
-  --title-mid: 2.545rem;
 }
 
 .branches-stop .branches-date {
@@ -1612,10 +1608,6 @@ mark.confirm {
 .stop-card {
   min-width: 0;
   padding-bottom: 2.25rem;
-}
-
-.stop-card .eyebrow {
-  margin-bottom: 0.45rem;
 }
 
 .stop-card h3 {

@@ -28,8 +28,6 @@ export interface Stop {
   title: string;
   org: string;
   place: string;
-  /** The comment line above the title, e.g. "promotion". Only for what the card doesn't already say. */
-  note?: string;
   bullets: string[];
   result?: Rich;
 }
@@ -148,7 +146,6 @@ const valencia: Stop = {
   title: 'A.S. Computer Programming',
   org: 'Valencia College',
   place: 'Orlando, FL',
-  note: 'during universal',
   bullets: [
     'Certificates: Computer Programming; Computer Programming Specialist; Computer Information Data Specialist; Web Development.',
   ],

@@ -74,7 +74,6 @@ const isConfirm = (part: Rich[number]): part is { confirm: string } => typeof pa
                       <span class="branches-date">{row.date}</span>
                       <span class="branches-lanes"><span class="branches-node" data-node={row.id}></span></span>
                       <article class="stop-card">
-                        {row.note && <p class="eyebrow">{row.note}</p>}
                         <h3>{row.title}</h3>
                         <p class="stop-when">
                           {row.org} · {row.place} · {row.when}
