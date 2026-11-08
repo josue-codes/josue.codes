@@ -1448,14 +1448,10 @@ mark.confirm {
   }
 }
 
-/* A stop's node and gutter date sit on its title's first line, below the comment line when the card has one:
-   --title-mid is that line's center (h3 1.45rem × 1.2 / 2), pushed down by the eyebrow (0.875rem × 1.4 + 0.45rem). */
+/* A stop's node and gutter date sit on its title's first line: --title-mid is that line's center
+   (h3 1.45rem × 1.2 / 2). */
 .branches-stop {
   --title-mid: 0.87rem;
-}
-
-.branches-stop:has(.stop-card > .eyebrow) {
-  --title-mid: 2.545rem;
 }
 
 .branches-stop .branches-date {
@@ -1466,7 +1462,7 @@ mark.confirm {
   position: relative;
 }
 
-/* Era bands, alternating paper and tint, each opened by a one-line zone label. */
+/* Bands alternate paper and tint, one role each. */
 .branches-zone {
   margin-block: 0.4rem;
   padding-block: 1rem 0;
@@ -1475,22 +1471,6 @@ mark.confirm {
 
 .branches-zone[data-tint] {
   background: var(--tint);
-}
-
-.branches-zone-head .eyebrow {
-  margin: 0 0 0.6rem;
-  padding-top: 0.1rem;
-}
-
-.branches-zone-label {
-  margin: 0;
-  padding-top: 0.3rem;
-}
-
-.branches-zone-head .eyebrow b,
-.branches-zone-label b {
-  font-weight: 400;
-  color: var(--ink);
 }
 
 .branches-zone .stop-card {
@@ -1628,10 +1608,6 @@ mark.confirm {
 .stop-card {
   min-width: 0;
   padding-bottom: 2.25rem;
-}
-
-.stop-card .eyebrow {
-  margin-bottom: 0.45rem;
 }
 
 .stop-card h3 {

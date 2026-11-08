@@ -4,12 +4,10 @@
 // draws the lanes between the stops. Without JavaScript the list still reads top to bottom, newest first.
 import Base from '../layouts/Base.astro';
 import { site } from '../site';
-import { resume, type Rich, type Zone } from '../lib/resume';
+import { resume, type Rich } from '../lib/resume';
 
 const description =
   'Five-plus years at B-Stock, from listing specialist to Manager of Process Automation, drawn as one journey with its branches.';
-/** A zone opened by a merge with no note carries its label in that row, so the band has no empty line. */
-const labelInRow = (zone: Zone) => zone.rows[0]?.type === 'merge' && !zone.rows[0].note;
 const isConfirm = (part: Rich[number]): part is { confirm: string } => typeof part !== 'string';
 ---
 
@@ -58,26 +56,12 @@ const isConfirm = (part: Rich[number]): part is { confirm: string } => typeof pa
         {
           resume.zones.map((zone, index) => (
             <li class="branches-zone" data-tint={index % 2 === 0 ? '' : undefined}>
-              {!labelInRow(zone) && (
-                <div class="branches-row branches-zone-head">
-                  <span class="branches-date"></span>
-                  <span class="branches-lanes"></span>
-                  <p class="eyebrow">
-                    <b>{zone.name}</b> · {zone.dates}
-                  </p>
-                </div>
-              )}
               <ol class="branches-stops">
-                {zone.rows.map((row, i) =>
+                {zone.rows.map((row) =>
                   row.type === 'merge' ? (
                     <li class="branches-row branches-event" data-tall={row.tall ? '' : undefined}>
                       <span class="branches-date">{row.date}</span>
                       <span class="branches-lanes"><span class="branches-node" data-node={row.id}></span></span>
-                      {i === 0 && labelInRow(zone) && (
-                        <p class="eyebrow branches-zone-label">
-                          <b>{zone.name}</b> · {zone.dates}
-                        </p>
-                      )}
                       {row.note && (
                         <p class="branches-note">
                           <span class="branches-note-date">{row.date.toLowerCase()} · </span>
@@ -90,7 +74,6 @@ const isConfirm = (part: Rich[number]): part is { confirm: string } => typeof pa
                       <span class="branches-date">{row.date}</span>
                       <span class="branches-lanes"><span class="branches-node" data-node={row.id}></span></span>
                       <article class="stop-card">
-                        {row.note && <p class="eyebrow">{row.note}</p>}
                         <h3>{row.title}</h3>
                         <p class="stop-when">
                           {row.org} · {row.place} · {row.when}
