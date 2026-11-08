@@ -78,7 +78,7 @@ const manager: Stop = {
     'Delivered 3x engineering velocity by leading my team to redesign specification, development and testing using AI workflows we built.',
     'Focused human review on decisions by leading my team to build bots that run integration tests and analyze results.',
     'Shipped emergency automation that cleared a six-figure inventory backlog, one of several rapid-response recoveries.',
-    'Lead my team to eliminate 90% of all manual work organization-wide; 40% of workflows already meet that target.',
+    'Leading my team to eliminate 90% of all manual work organization-wide; 40% of workflows already meet that target.',
   ],
   result: ['Key Outcomes: Changed how teams build and operate, pairing faster engineering with organization-wide automation.'],
 };
