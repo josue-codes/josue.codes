@@ -1466,7 +1466,7 @@ mark.confirm {
   position: relative;
 }
 
-/* Bands alternate paper and tint, one role each; a band that opens an era carries a one-line label. */
+/* Bands alternate paper and tint, one role each. */
 .branches-zone {
   margin-block: 0.4rem;
   padding-block: 1rem 0;
@@ -1475,22 +1475,6 @@ mark.confirm {
 
 .branches-zone[data-tint] {
   background: var(--tint);
-}
-
-.branches-zone-head .eyebrow {
-  margin: 0 0 0.6rem;
-  padding-top: 0.1rem;
-}
-
-.branches-zone-label {
-  margin: 0;
-  padding-top: 0.3rem;
-}
-
-.branches-zone-head .eyebrow b,
-.branches-zone-label b {
-  font-weight: 400;
-  color: var(--ink);
 }
 
 .branches-zone .stop-card {

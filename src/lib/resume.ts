@@ -47,11 +47,8 @@ export interface Merge {
 
 export type Row = Stop | Merge;
 
-/** A tinted or plain band; bands alternate, one role (or the degree with its job) each. Rows are newest first. A
- * band that opens an era carries its label. */
+/** A tinted or plain band; bands alternate, one role (or the degree with its job) each. Rows are newest first. */
 export interface Zone {
-  name?: string;
-  dates?: string;
   rows: Row[];
 }
 
@@ -79,7 +76,6 @@ const manager: Stop = {
   title: 'Manager, Process Automation',
   org: 'B-Stock',
   place: 'Orlando, FL',
-  note: 'promotion',
   bullets: [
     'Delivered 3x engineering velocity by leading my team to redesign specification, development and testing using AI workflows we built.',
     'Focused human review on decisions by leading my team to build bots that run integration tests and analyze results.',
@@ -114,7 +110,6 @@ const supervisor: Stop = {
   title: 'Supervisor of Process Automation',
   org: 'B-Stock',
   place: 'Orlando, FL',
-  note: 'promotion',
   bullets: [
     'Shortened seller automation rollout by guiding my team to architect a reusable Python framework replacing seller-specific scripts.',
     'Enabled scalable operations by shaping replatform design and guiding my team to adapt automation.',
@@ -182,17 +177,11 @@ export const resume = {
     'Reduced a 20-person team’s manual workload, improving accuracy and supporting more work without additional hiring',
   ],
   zones: [
-    {
-      name: 'Leadership',
-      dates: '2023 – now',
-      rows: [{ type: 'merge', id: 'merge-source', date: 'Sep 2025' }, manager],
-    },
+    { rows: [{ type: 'merge', id: 'merge-source', date: 'Sep 2025' }, manager] },
     { rows: [source] },
     { rows: [supervisor] },
-    { name: 'Automation Engineering', dates: '2021 – 2023', rows: [specialist] },
+    { rows: [specialist] },
     {
-      name: 'Hospitality Operations',
-      dates: '2012 – 2021',
       rows: [
         { type: 'merge', id: 'merge-universal', date: '2021', tall: true },
         valencia,
