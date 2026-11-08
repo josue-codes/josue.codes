@@ -9,7 +9,7 @@ import { resume, type Rich, type Zone } from '../lib/resume';
 const description =
   'Five-plus years at B-Stock, from listing specialist to Manager of Process Automation, drawn as one journey with its branches.';
 /** A zone opened by a merge with no note carries its label in that row, so the band has no empty line. */
-const labelInRow = (zone: Zone) => zone.rows[0]?.type === 'merge' && !zone.rows[0].note;
+const labelInRow = (zone: Zone) => !!zone.name && zone.rows[0]?.type === 'merge' && !zone.rows[0].note;
 const isConfirm = (part: Rich[number]): part is { confirm: string } => typeof part !== 'string';
 ---
 
@@ -58,7 +58,7 @@ const isConfirm = (part: Rich[number]): part is { confirm: string } => typeof pa
         {
           resume.zones.map((zone, index) => (
             <li class="branches-zone" data-tint={index % 2 === 0 ? '' : undefined}>
-              {!labelInRow(zone) && (
+              {zone.name && !labelInRow(zone) && (
                 <div class="branches-row branches-zone-head">
                   <span class="branches-date"></span>
                   <span class="branches-lanes"></span>

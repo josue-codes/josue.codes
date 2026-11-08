@@ -47,10 +47,11 @@ export interface Merge {
 
 export type Row = Stop | Merge;
 
-/** An era band. Rows are newest first. */
+/** A tinted or plain band; bands alternate, one role (or the degree with its job) each. Rows are newest first. A
+ * band that opens an era carries its label. */
 export interface Zone {
-  name: string;
-  dates: string;
+  name?: string;
+  dates?: string;
   rows: Row[];
 }
 
@@ -184,13 +185,10 @@ export const resume = {
     {
       name: 'Leadership',
       dates: '2023 – now',
-      rows: [
-        { type: 'merge', id: 'merge-source', date: 'Sep 2025' },
-        manager,
-        source,
-        supervisor,
-      ],
+      rows: [{ type: 'merge', id: 'merge-source', date: 'Sep 2025' }, manager],
     },
+    { rows: [source] },
+    { rows: [supervisor] },
     { name: 'Automation Engineering', dates: '2021 – 2023', rows: [specialist] },
     {
       name: 'Hospitality Operations',

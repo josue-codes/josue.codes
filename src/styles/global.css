@@ -1466,7 +1466,7 @@ mark.confirm {
   position: relative;
 }
 
-/* Era bands, alternating paper and tint, each opened by a one-line zone label. */
+/* Bands alternate paper and tint, one role each; a band that opens an era carries a one-line label. */
 .branches-zone {
   margin-block: 0.4rem;
   padding-block: 1rem 0;
