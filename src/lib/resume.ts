@@ -197,10 +197,10 @@ export const resume = {
     { id: 'valencia', lane: 2, parent: 1, stops: ['valencia'] },
   ] satisfies Branch[],
   skills: [
-    ['Languages', 'Python, SQL, Ruby, JavaScript, HTML/CSS'],
+    ['Languages', 'Python, SQL, Ruby, JavaScript'],
     ['Cloud & Data', 'Google Cloud (Cloud Run, Cloud Storage, BigQuery), AWS, PostgreSQL/AlloyDB, Apache Airflow'],
-    ['Frameworks & Tools', 'Ruby on Rails, FastAPI, Pydantic, React, pytest, Docker, GitLab CI/CD, REST APIs, OAuth 2.0'],
-    ['AI & Automation', 'Claude Code, OpenAI Codex, agentic workflows, ML-assisted categorization'],
+    ['Frameworks & Tools', 'Docker, Ruby on Rails, FastAPI, React, GitLab CI/CD, REST APIs, OAuth 2.0'],
+    ['AI & Automation', 'Claude Code, OpenAI Codex, AI-driven development workflows, AI code and architecture review, AI-driven integration testing'],
     ['Leadership', 'Team management, hiring and training, code review, test planning, incident response'],
   ],
 };
