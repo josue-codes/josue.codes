@@ -99,9 +99,8 @@ const source: Stop = {
   org: 'Source Software',
   place: 'Remote',
   bullets: [
-    'With a small team, built an all-in-one operations platform (inventory, orders, invoicing, payments, payroll, time tracking and lead tracking) on Ruby on Rails, PostgreSQL and AWS.',
+    'Delivered features for an all-in-one operations platform that remains in production as the company’s system of record.',
   ],
-  result: ['Still in production as the company’s system of record.'],
 };
 
 const supervisor: Stop = {
