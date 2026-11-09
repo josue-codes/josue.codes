@@ -75,12 +75,12 @@ const manager: Stop = {
   org: 'B-Stock',
   place: 'Orlando, FL',
   bullets: [
-    'Delivered 3x engineering velocity by leading my team to redesign specification, development and testing using AI workflows we built.',
+    'Delivered 3x engineering velocity by leading my team to redesign our SDLC, from spec to testing, with AI workflows we built.',
     'Focused human review on decisions by leading my team to build bots that run integration tests and analyze results.',
     'Shipped emergency automation that cleared a six-figure inventory backlog, one of several rapid-response recoveries.',
     'Leading my team to eliminate 90% of all manual work organization-wide; 40% of workflows already meet that target.',
   ],
-  result: ['Key Outcomes: Changed how teams build and operate, pairing faster engineering with organization-wide automation.'],
+  result: ['Key Outcomes: Changed how teams build and operate by partnering with cross-functional stakeholders on faster engineering and organization-wide automation.'],
 };
 
 const source: Stop = {
@@ -166,10 +166,10 @@ const universal: Stop = {
 
 export const resume = {
   summary:
-    'I help teams agree on what needs to change and why, then lead the work and write the code to make it last. Over five-plus years at B-Stock, I’ve earned promotions from automation specialist through supervisor to Manager of Process Automation. With an engineer’s understanding of the code and an operator’s understanding of the work, I guide teams to build reusable systems, improve development practices and reduce manual work.',
+    'I help teams agree on what needs to change and why, then lead the work and write the code to make it last. Over five-plus years at B-Stock, I’ve earned promotions from automation specialist through supervisor to Manager of Process Automation. With an engineer’s understanding of the code and an operator’s understanding of the work, I set automation strategy and roadmap, guide teams to build reusable systems that reduce manual work, and keep our engineering best practices current, evolving them as the tools change.',
   /** Three measured results, shown in the second syntax color like the Work page's outcomes. */
   glance: [
-    'Changed how teams build and operate, pairing faster engineering with organization-wide automation',
+    'Changed how teams build and operate by partnering with cross-functional stakeholders on faster engineering and organization-wide automation',
     'Guided my team to replace one-off work with reusable systems, scaling the business while continually buying back operational time',
     'Reduced a 20-person team’s manual workload, improving accuracy and supporting more work without additional hiring',
   ],
@@ -200,7 +200,7 @@ export const resume = {
     ['Languages', 'Python, SQL, Ruby, JavaScript'],
     ['Cloud & Data', 'Google Cloud (Cloud Run, Cloud Storage, BigQuery), AWS, PostgreSQL/AlloyDB, Apache Airflow'],
     ['Frameworks & Tools', 'Docker, Ruby on Rails, FastAPI, React, GitLab CI/CD, REST APIs, OAuth 2.0'],
-    ['AI & Automation', 'Claude Code, OpenAI Codex, AI-driven development workflows, AI code and architecture review, AI-driven integration testing'],
-    ['Leadership', 'Team management, hiring and training, code review, test planning, incident response'],
+    ['AI & Automation', 'Claude Code, OpenAI Codex, intelligent automation, workflow automation, process improvement, AI-driven development workflows, AI code and architecture review, AI-driven integration testing'],
+    ['Leadership', 'Team management, prioritization, coaching and career development, KPIs, hiring and training, code review, test planning, incident response'],
   ],
 };
