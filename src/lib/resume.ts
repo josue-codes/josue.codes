@@ -166,7 +166,7 @@ const universal: Stop = {
 
 export const resume = {
   summary:
-    'I help teams agree on what needs to change and why, then lead the work and write the code to make it last. Over five-plus years at B-Stock, I’ve earned promotions from automation specialist through supervisor to Manager of Process Automation. With an engineer’s understanding of the code and an operator’s understanding of the work, I guide teams to build reusable systems, improve development practices and reduce manual work.',
+    'I help teams agree on what needs to change and why, then lead the work and write the code to make it last. Over five-plus years at B-Stock, I’ve earned promotions from automation specialist through supervisor to Manager of Process Automation. With an engineer’s understanding of the code and an operator’s understanding of the work, I set automation strategy and roadmap, guide teams to build reusable systems that reduce manual work, and keep our engineering best practices current, evolving them as the tools change.',
   /** Three measured results, shown in the second syntax color like the Work page's outcomes. */
   glance: [
     'Changed how teams build and operate, pairing faster engineering with organization-wide automation',
@@ -200,7 +200,7 @@ export const resume = {
     ['Languages', 'Python, SQL, Ruby, JavaScript'],
     ['Cloud & Data', 'Google Cloud (Cloud Run, Cloud Storage, BigQuery), AWS, PostgreSQL/AlloyDB, Apache Airflow'],
     ['Frameworks & Tools', 'Docker, Ruby on Rails, FastAPI, React, GitLab CI/CD, REST APIs, OAuth 2.0'],
-    ['AI & Automation', 'Claude Code, OpenAI Codex, AI-driven development workflows, AI code and architecture review, AI-driven integration testing'],
-    ['Leadership', 'Team management, hiring and training, code review, test planning, incident response'],
+    ['AI & Automation', 'Claude Code, OpenAI Codex, intelligent automation, workflow automation, process improvement, AI-driven development workflows, AI code and architecture review, AI-driven integration testing'],
+    ['Leadership', 'Team management, prioritization, coaching and career development, KPIs, hiring and training, code review, test planning, incident response'],
   ],
 };
