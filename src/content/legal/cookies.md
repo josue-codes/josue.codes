@@ -1,7 +1,7 @@
 ---
 title: Cookie Policy
 description: josue.codes sets no cookies. What Cloudflare may set, and what your theme choice stores in your browser.
-updated: 2026-11-05
+updated: 2026-11-13
 tldr:
   - The site itself sets no cookies.
   - Cloudflare may set a strictly necessary security cookie, and only if a protection check is triggered.
@@ -11,11 +11,11 @@ tldr:
 
 ## Cookies Set by This Site
 
-None. The site has no accounts, forms or analytics, so it has nothing to remember about you.
+The site's code sets no cookies. Cloudflare may set the security cookie described below.
 
 ## Cookies Set by Cloudflare
 
-Cloudflare serves and protects the site. If one of its protection checks is triggered, for example to tell a person from a bot, Cloudflare may set a strictly necessary security cookie: `__cf_bm`, which helps tell people from bots and expires after 30 minutes of inactivity, or `cf_clearance`, which records that you passed a check so you are not asked again for a while. Neither is used for tracking or advertising. Cloudflare lists its cookies and their lifetimes in its [cookie documentation](https://developers.cloudflare.com/fundamentals/reference/policies-compliances/cloudflare-cookies/).
+Cloudflare serves and protects the site. Its Browser Integrity Check can challenge a request that has commonly abused headers or a missing or non-standard user agent. If you pass a challenge, Cloudflare sets one cookie, `cf_clearance`, which stores proof that you passed. Its default lifetime is 30 minutes, and Cloudflare classes it as strictly necessary. Cloudflare lists its cookies and their lifetimes in its [cookie documentation](https://developers.cloudflare.com/fundamentals/reference/policies-compliances/cloudflare-cookies/).
 
 ## Browser Storage
 
