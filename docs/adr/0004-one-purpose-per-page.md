@@ -14,4 +14,4 @@ Each page serves one purpose and carries only what serves it.
 - Exception: the legal pages keep the contact details their own text needs.
 
 ## Consequences
-About is sparse for now. That is accepted, and it will be filled out in a later update. Contact details are maintained in `src/site.ts`, and only the Contact page, the footer and the legal pages render them. A new page states its single purpose, and anything that doesn't serve that purpose belongs in the header, the footer or another page.
+About tells the owner’s story in four short paragraphs: where he started, how he got here, what he does now and why, and life off the clock. Contact details are maintained in `src/site.ts`, and only the Contact page, the footer and the legal pages render them. A new page states its single purpose, and anything that doesn't serve that purpose belongs in the header, the footer or another page.
