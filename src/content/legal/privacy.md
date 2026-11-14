@@ -1,10 +1,10 @@
 ---
 title: Privacy Policy
 description: What data josue.codes touches, why, and what you can ask me to do about it.
-updated: 2026-11-05
+updated: 2026-11-13
 tldr:
-  - This is a static site. No accounts, forms, analytics, ads or trackers.
-  - Cloudflare serves the site and sees the usual request data (IP address, URL, browser). I have not turned on logging or analytics.
+  - This is a static site. No accounts, forms, ads or trackers, and no analytics that I added.
+  - Cloudflare serves the site and sees the usual request data (IP address, URL, browser). By default it also keeps traffic totals, a sampled log of requests its security checks act on, and reports of failed page loads. Cloudflare holds that data. I can see it in my dashboard, and I don't use it for anything.
   - Your theme choice is stored in your own browser. It never reaches me.
   - If you email me, I keep the thread only as long as the conversation is useful, and I do not share it.
   - I do not sell or share personal data. Email me to ask what I hold about you or to have it deleted.
@@ -18,13 +18,22 @@ You can reach me by email at [josue@josue.codes](mailto:josue@josue.codes) or by
 
 ## What This Site Is
 
-josue.codes is a static website. There are no accounts, forms, comments, newsletters, payments or ads. I have not enabled any analytics. You do not need to give me any personal data to use the site.
+josue.codes is a static website. There are no accounts, forms, comments, newsletters, payments or ads. I have not added analytics or any third-party script. The data Cloudflare collects by default is listed under "Data Processed When You Visit". You do not need to give me any personal data to use the site.
 
 ## Data Processed When You Visit
 
-Cloudflare, Inc. (USA) serves and protects the site. To do that, it processes the technical data every web request carries: your IP address, the URL you requested, the time, your browser's user agent and similar request headers. I have not enabled request logging or analytics, so I do not keep records of individual visits. Cloudflare's handling of this data is described in its [privacy policy](https://www.cloudflare.com/privacypolicy/).
+Cloudflare, Inc. (USA) serves and protects the site. To do that, it processes the technical data every web request carries: your IP address, the URL you requested, the time, your browser's user agent and similar request headers. Cloudflare's handling of this data is described in its [privacy policy](https://www.cloudflare.com/privacypolicy/).
 
-Legal basis: my legitimate interest in delivering the site and keeping it secure (GDPR Article 6(1)(f)). This data is needed for the site to load at all.
+Cloudflare also collects the following by default. I did not set these up, and I do not use the data for anything today. I can view it in my Cloudflare dashboard.
+
+- **Traffic statistics:** totals of requests, bandwidth, unique visitors and countries. The dashboard shows at least the last 30 days.
+- **Worker metrics** for the code that serves the site: request counts, error counts and CPU time. The dashboard shows up to three months.
+- **Security events:** a sampled log of requests that Cloudflare's security features act on. An entry includes fields such as your IP address, network (ASN), country, user agent and the path you requested. The dashboard shows up to the last 31 days.
+- **Error reports (Network Error Logging):** if a request to the site fails, your browser may send Cloudflare a report. Successful loads are never reported. A report holds the URL, referrer, request method, status code, error phase, protocol, server IP address and elapsed time. Cloudflare says it "does not log the client IP address anywhere in the Network Error Logging pipeline", uses your IP address only to derive your network, country and metro area, and does not share the reports with third parties.
+
+These periods are how far back my dashboard shows data. Cloudflare does not publish how long it keeps the underlying data. Request logging and log export are off, and I do not export or keep copies of any of this.
+
+Legal basis: my legitimate interest in delivering the site, keeping it secure and knowing when it fails to load (GDPR Article 6(1)(f)). The request data is needed for the site to load at all. The statistics, security events and error reports above are Cloudflare's defaults for running and protecting the site.
 
 ## Cookies and Browser Storage
 
